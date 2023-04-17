@@ -24,10 +24,10 @@ public class AbstractBaseJpaVO {
     private Long updatedAt;
 
     protected AbstractBaseJpaVO(BaseJpaAggregate source) {
-        this.setVersion(source.getVersion());
+//        this.setVersion(source.getVersion());
         this.setId(source.getId());
-        this.setCreatedAt(source.getCreatedAt().toEpochMilli());
-        this.setUpdatedAt(source.getUpdatedAt().toEpochMilli());
+//        this.setCreatedAt(source.getCreatedAt().toEpochMilli());
+//        this.setUpdatedAt(source.getUpdatedAt().toEpochMilli());
     }
 
     protected AbstractBaseJpaVO() {
