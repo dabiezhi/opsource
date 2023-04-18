@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Version;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -19,7 +18,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 
 @MappedSuperclass
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public abstract class BaseJpaAggregate extends AbstractAggregateRoot<BaseJpaAggregate> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,31 +27,32 @@ public abstract class BaseJpaAggregate extends AbstractAggregateRoot<BaseJpaAggr
     private Long id;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-//    @Convert(converter = InstantLongConverter.class)
+    //    @Convert(converter = InstantLongConverter.class)
     @Setter(AccessLevel.PROTECTED)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
-//    @Convert(converter = InstantLongConverter.class)
+    //    @Convert(converter = InstantLongConverter.class)
     @Setter(AccessLevel.PROTECTED)
     private LocalDateTime updatedAt;
 
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", insertable = false)
     private Integer isDeleted;
 
-//    @Version
-//    @Column(name = "version")
-//    @Setter(AccessLevel.PRIVATE)
-//    private Integer version;
+    //    @Version
+    //    @Column(name = "version")
+    //    @Setter(AccessLevel.PRIVATE)
+    //    private Integer version;
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.setCreatedAt(LocalDateTime.now());
         this.setUpdatedAt(LocalDateTime.now());
     }
 
     @PreUpdate
-    public void preUpdate(){
+    public void preUpdate() {
         this.setUpdatedAt(LocalDateTime.now());
     }
+
 }

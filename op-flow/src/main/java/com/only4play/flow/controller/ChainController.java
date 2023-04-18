@@ -40,7 +40,7 @@ public class ChainController {
    */
   @PostMapping("createChain")
   public JsonObject<Long> createChain(@RequestBody ChainCreateRequest request) {
-    ChainCreator creator = ChainMapper.INSTANCE.request2Dto(request);
+    ChainCreator creator = ChainMapper.INSTANCE.request2Creator(request);
     return JsonObject.success(chainService.createChain(creator));
   }
 

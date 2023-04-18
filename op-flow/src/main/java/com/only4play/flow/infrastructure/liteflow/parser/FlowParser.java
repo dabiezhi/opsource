@@ -23,6 +23,10 @@ public class FlowParser {
     private final Flow flow = Flow.getInstance();
     private final List<String> cmpDataList = new ArrayList<>();
 
+    public FlowParser of() {
+        return new FlowParser();
+    }
+
     public Flow parseFlow(String config) {
         JSONObject configJson = JSONObject.parseObject(config);
         JSONArray cells = configJson.getJSONArray("cells");

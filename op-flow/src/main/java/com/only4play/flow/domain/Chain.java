@@ -21,6 +21,7 @@ import com.only4play.codegen.processor.updater.IgnoreUpdater;
 import com.only4play.codegen.processor.vo.GenVo;
 import com.only4play.common.annotation.FieldDesc;
 import com.only4play.common.constants.ValidStatus;
+import com.only4play.flow.infrastructure.liteflow.parser.FlowParser;
 import com.only4play.jpa.converter.ValidStatusConverter;
 import com.only4play.jpa.support.BaseJpaAggregate;
 
@@ -70,16 +71,19 @@ public class Chain extends BaseJpaAggregate {
 
     @Convert(converter = ValidStatusConverter.class)
     @IgnoreUpdater
-    @IgnoreCreator
+//    @IgnoreCreator
     @FieldDesc(name = "有效状态: 1-有效,0-无效")
     private ValidStatus validStatus;
 
     public void init() {
+        this.setValidStatus(ValidStatus.VALID);
     }
 
     public void valid() {
+        this.setValidStatus(ValidStatus.VALID);
     }
 
     public void invalid() {
+        this.setValidStatus(ValidStatus.INVALID);
     }
 }

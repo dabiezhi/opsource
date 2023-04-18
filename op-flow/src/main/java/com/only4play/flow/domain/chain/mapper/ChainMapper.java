@@ -28,7 +28,7 @@ public interface ChainMapper {
 
   ChainUpdater request2Updater(ChainUpdateRequest request);
 
-  ChainCreator request2Dto(ChainCreateRequest request);
+  ChainCreator request2Creator(ChainCreateRequest request);
 
   ChainQuery request2Query(ChainQueryRequest request);
 
