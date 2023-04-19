@@ -2,6 +2,7 @@
 package com.only4play.flow.domain.chain.service;
 
 import com.only4play.common.model.PageRequestWrapper;
+import com.only4play.common.model.PageWrapper;
 import com.only4play.flow.domain.chain.creator.ChainCreator;
 import com.only4play.flow.domain.chain.query.ChainQuery;
 import com.only4play.flow.domain.chain.updater.ChainUpdater;
@@ -38,5 +39,5 @@ public interface IChainService {
   /**
    * findByPage
    */
-  Page<ChainVO> findByPage(PageRequestWrapper<ChainQuery> query);
+  Page<ChainVO> findByPage(PageWrapper<ChainQuery> query);
 }

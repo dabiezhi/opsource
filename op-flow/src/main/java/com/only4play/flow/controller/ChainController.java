@@ -2,9 +2,8 @@
 package com.only4play.flow.controller;
 
 import com.only4play.common.constants.CodeEnum;
-import com.only4play.common.model.JsonObject;
-import com.only4play.common.model.PageRequestWrapper;
-import com.only4play.common.model.PageResult;
+import com.only4play.common.model.PageWrapper;
+import com.only4play.common.model.Result;
 import com.only4play.flow.domain.chain.creator.ChainCreator;
 import com.only4play.flow.domain.chain.mapper.ChainMapper;
 import com.only4play.flow.domain.chain.query.ChainQuery;
@@ -15,9 +14,10 @@ import com.only4play.flow.domain.chain.response.ChainResponse;
 import com.only4play.flow.domain.chain.service.IChainService;
 import com.only4play.flow.domain.chain.updater.ChainUpdater;
 import com.only4play.flow.domain.chain.vo.ChainVO;
+
 import java.lang.Long;
 import java.lang.String;
-import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,75 +33,62 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("chain/v1")
 @RequiredArgsConstructor
 public class ChainController {
-  private final IChainService chainService;
+    private final IChainService chainService;
 
-  /**
-   * createRequest
-   */
-  @PostMapping("createChain")
-  public JsonObject<Long> createChain(@RequestBody ChainCreateRequest request) {
-    ChainCreator creator = ChainMapper.INSTANCE.request2Creator(request);
-    return JsonObject.success(chainService.createChain(creator));
-  }
+    /**
+     * createRequest
+     */
+    @PostMapping("createChain")
+    public Result<Long> createChain(@RequestBody ChainCreateRequest request) {
+        ChainCreator creator = ChainMapper.INSTANCE.request2Creator(request);
+        return Result.success(chainService.createChain(creator));
+    }
 
-  /**
-   * update request
-   */
-  @PostMapping("updateChain")
-  public JsonObject<String> updateChain(@RequestBody ChainUpdateRequest request) {
-    ChainUpdater updater = ChainMapper.INSTANCE.request2Updater(request);
-    chainService.updateChain(updater);
-    return JsonObject.success(CodeEnum.Success.getName());
-  }
+    /**
+     * update request
+     */
+    @PostMapping("updateChain")
+    public Result<String> updateChain(@RequestBody ChainUpdateRequest request) {
+        ChainUpdater updater = ChainMapper.INSTANCE.request2Updater(request);
+        chainService.updateChain(updater);
+        return Result.success(CodeEnum.Success.getName());
+    }
 
-  /**
-   * valid
-   */
-  @PostMapping("valid/{id}")
-  public JsonObject<String> validChain(@PathVariable Long id) {
-    chainService.validChain(id);
-    return JsonObject.success(CodeEnum.Success.getName());
-  }
+    /**
+     * valid
+     */
+    @PostMapping("valid/{id}")
+    public Result<String> validChain(@PathVariable Long id) {
+        chainService.validChain(id);
+        return Result.success(CodeEnum.Success.getName());
+    }
 
-  /**
-   * invalid
-   */
-  @PostMapping("invalid/{id}")
-  public JsonObject<String> invalidChain(@PathVariable Long id) {
-    chainService.invalidChain(id);
-    return JsonObject.success(CodeEnum.Success.getName());
-  }
+    /**
+     * invalid
+     */
+    @PostMapping("invalid/{id}")
+    public Result<String> invalidChain(@PathVariable Long id) {
+        chainService.invalidChain(id);
+        return Result.success(CodeEnum.Success.getName());
+    }
 
-  /**
-   * findById
-   */
-  @GetMapping("findById/{id}")
-  public JsonObject<ChainResponse> findById(@PathVariable Long id) {
-    ChainVO vo = chainService.findById(id);
-    ChainResponse response = ChainMapper.INSTANCE.vo2CustomResponse(vo);
-    return JsonObject.success(response);
-  }
+    /**
+     * findById
+     */
+    @GetMapping("findById/{id}")
+    public Result<ChainResponse> findById(@PathVariable Long id) {
+        ChainVO vo = chainService.findById(id);
+        ChainResponse response = ChainMapper.INSTANCE.vo2CustomResponse(vo);
+        return Result.success(response);
+    }
 
-  /**
-   * findByPage request
-   */
-  @PostMapping("findByPage")
-  public JsonObject<PageResult<ChainResponse>> findByPage(
-      @RequestBody PageRequestWrapper<ChainQueryRequest> request) {
-    PageRequestWrapper<ChainQuery> wrapper = new PageRequestWrapper<>();
-    wrapper.setBean(ChainMapper.INSTANCE.request2Query(request.getBean()));
-    wrapper.setSorts(request.getSorts());
-        wrapper.setPageSize(request.getPageSize());
-        wrapper.setPage(request.getPage());
-    Page<ChainVO> page = chainService.findByPage(wrapper);
-    return JsonObject.success(
-            PageResult.of(
-                page.getContent().stream()
-                    .map(vo -> ChainMapper.INSTANCE.vo2CustomResponse(vo))
-                    .collect(Collectors.toList()),
-                page.getTotalElements(),
-                page.getSize(),
-                page.getNumber())
-        );
-  }
+    /**
+     * findByPage request
+     */
+    @PostMapping("findByPage")
+    public Result<Page<ChainResponse>> findByPage(@RequestBody PageWrapper<ChainQueryRequest> request) {
+        PageWrapper<ChainQuery> pageWrapper = request.map(v -> ChainMapper.INSTANCE.request2Query(request.getBean()));
+        Page<ChainVO> page = chainService.findByPage(pageWrapper);
+        return Result.success(page.map(ChainMapper.INSTANCE::vo2CustomResponse));
+    }
 }

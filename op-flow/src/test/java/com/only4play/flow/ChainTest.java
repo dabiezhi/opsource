@@ -4,10 +4,8 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import com.alibaba.fastjson.JSONObject;
-import com.only4play.common.model.JsonObject;
 import com.only4play.common.model.PageRequestWrapper;
-import com.only4play.common.model.PageResult;
+import com.only4play.common.model.Result;
 import com.only4play.flow.controller.ChainController;
 import com.only4play.flow.domain.chain.request.ChainCreateRequest;
 import com.only4play.flow.domain.chain.request.ChainQueryRequest;
@@ -38,8 +36,8 @@ public class ChainTest {
         request.setElData("");
         request.setFrontJson("");
         request.setValidStatus("VALID");
-        JsonObject<Long> chain = chainController.createChain(request);
-        System.out.println(JSONObject.toJSONString(chain));
+        Result<Long> chain = chainController.createChain(request);
+//        System.out.println(Result.toJSONString(chain));
     }
 
 
@@ -55,8 +53,8 @@ public class ChainTest {
         request.setElData("234");
         request.setFrontJson("");
         request.setEnv("dev");
-        JsonObject<String> chain = chainController.updateChain(request);
-        System.out.println(JSONObject.toJSONString(chain));
+        Result<String> chain = chainController.updateChain(request);
+//        System.out.println(Result.toJSONString(chain));
     }
 
 
@@ -75,8 +73,8 @@ public class ChainTest {
     @Test
     public void testFindById() {
         //TODO: Test goes here...
-        JsonObject<ChainResponse> byId = chainController.findById(1L);
-        System.out.println(JSONObject.toJSONString(byId));
+        Result<ChainResponse> byId = chainController.findById(1L);
+//        System.out.println(Result.toJSONString(byId));
     }
 
     @Test
@@ -85,8 +83,8 @@ public class ChainTest {
         PageRequestWrapper<ChainQueryRequest> request = new PageRequestWrapper<>();
         request.setPage(1);
         request.setPageSize(10);
-        JsonObject<PageResult<ChainResponse>> byPage = chainController.findByPage(request);
-        System.out.println(JSONObject.toJSONString(byPage));
+//        Result<PageResult<ChainResponse>> byPage = chainController.findByPage(request);
+//        System.out.println(Result.toJSONString(byPage));
     }
 
 }

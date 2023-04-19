@@ -4,6 +4,7 @@ package com.only4play.flow.domain.chain.service;
 import com.only4play.common.constants.CodeEnum;
 import com.only4play.common.exception.BusinessException;
 import com.only4play.common.model.PageRequestWrapper;
+import com.only4play.common.model.PageWrapper;
 import com.only4play.flow.domain.Chain;
 import com.only4play.flow.domain.chain.creator.ChainCreator;
 import com.only4play.flow.domain.chain.mapper.ChainMapper;
@@ -91,7 +92,7 @@ public class ChainServiceImpl implements IChainService {
    * findByPage
    */
   @Override
-  public Page<ChainVO> findByPage(PageRequestWrapper<ChainQuery> query) {
+  public Page<ChainVO> findByPage(PageWrapper<ChainQuery> query) {
     BooleanBuilder booleanBuilder = new BooleanBuilder();
     Page<Chain> page = chainRepository.findAll(booleanBuilder,
             PageRequest.of(query.getPage() - 1, query.getPageSize(), Sort.by(
