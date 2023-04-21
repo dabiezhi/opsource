@@ -16,14 +16,14 @@ import com.only4play.flow.infrastructure.liteflow.emums.NodeKind;
  */
 public class FlowParser {
 
-    private final LinkedHashMap<String, List<Node>> nodeNextMap = new LinkedHashMap<>();
-    private final LinkedHashMap<String, List<Node>> nodePreMap = new LinkedHashMap<>();
-    private final LinkedHashMap<String, Integer> flowToNodeCounter = new LinkedHashMap<>();
-    private final LinkedHashMap<String, NodeGroup> nodeGroupMap = new LinkedHashMap<>();
-    private final Flow flow = Flow.getInstance();
-    private final List<String> cmpDataList = new ArrayList<>();
+    private final LinkedHashMap<String, List<Node>> nodeNextMap       = new LinkedHashMap<>();
+    private final LinkedHashMap<String, List<Node>> nodePreMap        = new LinkedHashMap<>();
+    private final LinkedHashMap<String, Integer>    flowToNodeCounter = new LinkedHashMap<>();
+    private final LinkedHashMap<String, NodeGroup>  nodeGroupMap      = new LinkedHashMap<>();
+    private final Flow                              flow              = Flow.getInstance();
+    private final List<String>                      cmpDataList       = new ArrayList<>();
 
-    public FlowParser of() {
+    public static FlowParser of() {
         return new FlowParser();
     }
 
@@ -67,7 +67,7 @@ public class FlowParser {
         return flow;
     }
 
-    public String genEL() throws Exception {
+    public String genEL() {
         StringBuilder bld = new StringBuilder("");
         String el = this.genThenEL(flow.getNodes());
         for (String cmpData : cmpDataList) {
@@ -78,27 +78,28 @@ public class FlowParser {
         return bld.toString();
     }
 
-    private String genNodeEL(Node node) throws Exception {
+    private String genNodeEL(Node node) {
         StringBuilder bld = new StringBuilder("");
         if (node.getData() == null || node.getData().getParams() == null) {
             bld.append(node.getCompId());
         } else {
             String cpmDataName = "cmpData" + (cmpDataList.size() + 1);
             if (NodeKind.IFNODE == node.getKind()) {
-                bld.append("IF(" + node.getCompId() + ".tag(\"" + node.getId() + "\")" + ".data(" + cpmDataName + ")");
+                bld.append("IF(" + node.getCompId() + ".tag(\"" + node.getId() + "\")" + ".data("
+                           + cpmDataName + ")");
                 JSONObject params = node.getData().getParams();
                 String trueNode = params.getJSONObject("trueNode").getString("value");
                 String falseNode = params.getJSONObject("falseNode").getString("value");
-                List<NodeGroup> trueNodeGroup = node.getGroups().stream().filter(group -> group.getNodes()
-                        .stream()
+                List<NodeGroup> trueNodeGroup = node.getGroups().stream()
+                    .filter(group -> group.getNodes().stream()
                         .filter(groupNode -> groupNode.getId().equals(trueNode))
-                        .collect(Collectors.toList())
-                        .size() > 0).collect(Collectors.toList());
-                List<NodeGroup> falseNodeGroup = node.getGroups().stream().filter(group -> group.getNodes()
-                        .stream()
+                        .collect(Collectors.toList()).size() > 0)
+                    .collect(Collectors.toList());
+                List<NodeGroup> falseNodeGroup = node.getGroups().stream()
+                    .filter(group -> group.getNodes().stream()
                         .filter(groupNode -> groupNode.getId().equals(falseNode))
-                        .collect(Collectors.toList())
-                        .size() > 0).collect(Collectors.toList());
+                        .collect(Collectors.toList()).size() > 0)
+                    .collect(Collectors.toList());
                 if (trueNodeGroup.size() > 0) {
                     bld.append(",");
                     for (NodeGroup g : trueNodeGroup) {
@@ -118,7 +119,8 @@ public class FlowParser {
                 }
                 bld.append(")");
             } else {
-                bld.append(node.getCompId() + ".tag(\"" + node.getId() + "\")" + ".data(" + cpmDataName + ")");
+                bld.append(node.getCompId() + ".tag(\"" + node.getId() + "\")" + ".data("
+                           + cpmDataName + ")");
                 if (node.getGroups().size() == 1) {
                     bld.append(",");
                     bld.append(this.genThenEL(node.getGroups().get(0).getNodes()));
@@ -137,7 +139,7 @@ public class FlowParser {
         return bld.toString();
     }
 
-    private String genThenEL(List<Node> nodes) throws Exception {
+    private String genThenEL(List<Node> nodes) {
         StringBuilder bld = new StringBuilder("");
         bld.append("THEN(");
         for (Node gNode : nodes) {
@@ -150,7 +152,6 @@ public class FlowParser {
         bld.append(")");
         return bld.toString();
     }
-
 
     private Node createNode(JSONObject cell) {
         JSONObject data = cell.getJSONObject("data");
@@ -187,7 +188,6 @@ public class FlowParser {
             realNodeGroup.getNodes().add(node);
             this.nodeGroupMap.put(node.getId(), realNodeGroup);
         }
-
 
         if (nextNodes == null) {
             return;

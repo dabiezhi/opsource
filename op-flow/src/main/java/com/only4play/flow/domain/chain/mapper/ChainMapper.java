@@ -3,7 +3,7 @@ package com.only4play.flow.domain.chain.mapper;
 
 import com.only4play.common.mapper.DateMapper;
 import com.only4play.common.mapper.GenericEnumMapper;
-import com.only4play.flow.domain.Chain;
+import com.only4play.flow.domain.chain.Chain;
 import com.only4play.flow.domain.chain.creator.ChainCreator;
 import com.only4play.flow.domain.chain.query.ChainQuery;
 import com.only4play.flow.domain.chain.request.ChainCreateRequest;

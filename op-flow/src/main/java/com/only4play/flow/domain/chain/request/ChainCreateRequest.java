@@ -30,6 +30,6 @@ public class ChainCreateRequest implements Request {
     private String frontJson;
 
     @Schema(title = "有效状态 1-有效,0-失效")
-    private String validStatus;
+    private Integer validStatus;
 
 }

@@ -36,9 +36,6 @@ public abstract class BaseJpaAggregate extends AbstractAggregateRoot<BaseJpaAggr
     @Setter(AccessLevel.PROTECTED)
     private LocalDateTime updatedAt;
 
-    @Column(name = "is_deleted", insertable = false)
-    private Integer isDeleted;
-
     //    @Version
     //    @Column(name = "version")
     //    @Setter(AccessLevel.PRIVATE)

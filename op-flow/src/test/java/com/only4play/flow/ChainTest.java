@@ -35,7 +35,7 @@ public class ChainTest {
         request.setChainDesc("用于演示");
         request.setElData("");
         request.setFrontJson("");
-        request.setValidStatus("VALID");
+        request.setValidStatus(0);
         Result<Long> chain = chainController.createChain(request);
 //        System.out.println(Result.toJSONString(chain));
     }

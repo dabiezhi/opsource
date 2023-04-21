@@ -2,6 +2,7 @@
 package com.only4play.flow.controller;
 
 import com.only4play.common.constants.CodeEnum;
+import com.only4play.common.model.PageResult;
 import com.only4play.common.model.PageWrapper;
 import com.only4play.common.model.Result;
 import com.only4play.flow.domain.chain.creator.ChainCreator;
@@ -14,9 +15,6 @@ import com.only4play.flow.domain.chain.response.ChainResponse;
 import com.only4play.flow.domain.chain.service.IChainService;
 import com.only4play.flow.domain.chain.updater.ChainUpdater;
 import com.only4play.flow.domain.chain.vo.ChainVO;
-
-import java.lang.Long;
-import java.lang.String;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -86,9 +84,9 @@ public class ChainController {
      * findByPage request
      */
     @PostMapping("findByPage")
-    public Result<Page<ChainResponse>> findByPage(@RequestBody PageWrapper<ChainQueryRequest> request) {
+    public Result<PageResult<ChainResponse>> findByPage(@RequestBody PageWrapper<ChainQueryRequest> request) {
         PageWrapper<ChainQuery> pageWrapper = request.map(v -> ChainMapper.INSTANCE.request2Query(request.getBean()));
-        Page<ChainVO> page = chainService.findByPage(pageWrapper);
-        return Result.success(page.map(ChainMapper.INSTANCE::vo2CustomResponse));
+        Page<ChainResponse> page = chainService.findByPage(pageWrapper).map(ChainMapper.INSTANCE::vo2CustomResponse);
+        return Result.success(PageResult.of(page.getContent(),page.getTotalElements(),page.getSize(),page.getNumber()));
     }
 }
