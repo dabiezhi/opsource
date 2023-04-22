@@ -2,9 +2,8 @@ package com.only4play.flow.infrastructure.liteflow;
 
 import java.util.List;
 
-import com.only4play.flow.infrastructure.liteflow.parser.Flow;
-import com.only4play.flow.infrastructure.liteflow.parser.FlowParser;
-import com.only4play.flow.infrastructure.liteflow.parser.Node;
+import com.only4play.flow.infrastructure.liteflow.parser.IFlowParser;
+import com.only4play.flow.infrastructure.liteflow.parser.INode;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
@@ -15,11 +14,11 @@ import cn.hutool.core.io.resource.ClassPathResource;
  */
 public class Test {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         ClassPathResource classPathResource = new ClassPathResource("dag1.json");
         String rule = IoUtil.readUtf8(classPathResource.getStream());
-        FlowParser parser = FlowParser.of(rule);
-        List<Node> nodes = parser.flow.getNodes();
+        IFlowParser parser = IFlowParser.of1(rule);
+        List<INode> nodes = parser.flow.getNodes();
         String el = parser.genEL();
         System.out.println(el);
     }

@@ -32,6 +32,11 @@ public interface IChainService {
   void invalidChain(Long id);
 
   /**
+   * delete
+   */
+  void deleteChain(Long id);
+
+  /**
    * findById
    */
   ChainVO findById(Long id);

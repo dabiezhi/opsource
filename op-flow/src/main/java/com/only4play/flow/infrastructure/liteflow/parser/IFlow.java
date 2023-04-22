@@ -10,12 +10,12 @@ import lombok.Data;
  * Created by on 2023-04-18 10:15 AM
  */
 @Data
-public class Flow {
+public class IFlow {
 
-    private List<Node> nodes;
+    private List<INode> nodes;
 
-    public static Flow getInstance() {
-        Flow flow = new Flow();
+    public static IFlow getInstance() {
+        IFlow flow = new IFlow();
         flow.setNodes(new ArrayList<>());
         return flow;
     }

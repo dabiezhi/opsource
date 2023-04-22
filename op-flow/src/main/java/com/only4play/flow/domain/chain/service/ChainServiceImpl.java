@@ -71,6 +71,14 @@ public class ChainServiceImpl implements IChainService {
     }
 
     /**
+     * delete
+     */
+    @Override
+    public void deleteChain(Long id) {
+        chainRepository.deleteById(id);
+    }
+
+    /**
      * findById
      */
     @Override

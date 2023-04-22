@@ -12,7 +12,7 @@ public enum NodeKind {
     IFNODE("ifNode"),
 
     FORNODE("forNode"),
-    SWITCHNODE("switch");
+    SWITCHNODE("switchNode");
 
     private final String code;
 

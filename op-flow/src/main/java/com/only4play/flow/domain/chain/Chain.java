@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.only4play.codegen.processor.creator.GenCreator;
-import com.only4play.codegen.processor.mapper.GenMapper;
 import com.only4play.codegen.processor.query.GenQuery;
 import com.only4play.codegen.processor.updater.GenUpdater;
 import com.only4play.codegen.processor.updater.IgnoreUpdater;
@@ -13,8 +12,7 @@ import com.only4play.codegen.processor.vo.GenVo;
 import com.only4play.common.annotation.FieldDesc;
 import com.only4play.common.constants.ValidStatus;
 import com.only4play.flow.domain.chain.events.ChainEvents;
-import com.only4play.flow.infrastructure.liteflow.parser.Flow;
-import com.only4play.flow.infrastructure.liteflow.parser.FlowParser;
+import com.only4play.flow.infrastructure.liteflow.parser.IFlowParser;
 import com.only4play.jpa.converter.ValidStatusConverter;
 import com.only4play.jpa.support.BaseJpaAggregate;
 
@@ -53,20 +51,23 @@ public class Chain extends BaseJpaAggregate {
 
     @Convert(converter = ValidStatusConverter.class)
     @IgnoreUpdater
-    //    @IgnoreCreator
+    //    @IgnoreCreat
+    //    or
     @FieldDesc(name = "有效状态: 1-有效,0-无效")
     private ValidStatus validStatus;
 
     public void init() {
         this.setValidStatus(ValidStatus.INVALID);
+        Assert.notBlank(this.getFrontJson());
+        IFlowParser parser = IFlowParser.of1(this.getFrontJson());
+        this.setElData(parser.genEL());
+        registerEvent(new ChainEvents.ChainCreateEvent(this, parser));
     }
 
     public void valid() {
         this.setValidStatus(ValidStatus.VALID);
-        Assert.notBlank(this.getFrontJson());
-        FlowParser flowParser = FlowParser.of(this.getFrontJson());
-        this.setElData(flowParser.genEL());
-        registerEvent(new ChainEvents.ChainCreateEvent(this, flowParser));
+        IFlowParser parser = IFlowParser.of1(this.getFrontJson());
+        this.setElData(parser.genEL());
     }
 
     public void invalid() {

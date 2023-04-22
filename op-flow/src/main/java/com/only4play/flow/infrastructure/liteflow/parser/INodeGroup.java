@@ -10,11 +10,11 @@ import lombok.Data;
  * Created by on 2023-04-18 10:16 AM
  */
 @Data
-public class NodeGroup {
-    private List<Node> nodes;
+public class INodeGroup {
+    private List<INode> nodes;
 
-    public static NodeGroup getInstance() {
-        NodeGroup flow = new NodeGroup();
+    public static INodeGroup getInstance() {
+        INodeGroup flow = new INodeGroup();
         flow.setNodes(new ArrayList<>());
         return flow;
     }

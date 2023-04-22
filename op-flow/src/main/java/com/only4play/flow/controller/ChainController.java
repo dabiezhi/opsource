@@ -71,6 +71,15 @@ public class ChainController {
     }
 
     /**
+     * delete
+     */
+    @PostMapping("delete/{id}")
+    public Result<String> deleteChain(@PathVariable Long id) {
+        chainService.deleteChain(id);
+        return Result.success(CodeEnum.Success.getName());
+    }
+
+    /**
      * findById
      */
     @GetMapping("findById/{id}")
@@ -85,8 +94,11 @@ public class ChainController {
      */
     @PostMapping("findByPage")
     public Result<PageResult<ChainResponse>> findByPage(@RequestBody PageWrapper<ChainQueryRequest> request) {
-        PageWrapper<ChainQuery> pageWrapper = request.map(v -> ChainMapper.INSTANCE.request2Query(request.getBean()));
-        Page<ChainResponse> page = chainService.findByPage(pageWrapper).map(ChainMapper.INSTANCE::vo2CustomResponse);
-        return Result.success(PageResult.of(page.getContent(),page.getTotalElements(),page.getSize(),page.getNumber()));
+        PageWrapper<ChainQuery> pageWrapper = request
+            .map(v -> ChainMapper.INSTANCE.request2Query(request.getBean()));
+        Page<ChainResponse> page = chainService.findByPage(pageWrapper)
+            .map(ChainMapper.INSTANCE::vo2CustomResponse);
+        return Result.success(PageResult.of(page.getContent(), page.getTotalElements(),
+            page.getSize(), page.getNumber()));
     }
 }

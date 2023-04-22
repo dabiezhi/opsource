@@ -3,7 +3,7 @@ package com.only4play.flow.domain.chain.events;
 import com.alibaba.fastjson.JSON;
 import com.only4play.flow.domain.node.creator.NodeCreator;
 import com.only4play.flow.domain.node.service.INodeService;
-import com.only4play.flow.infrastructure.liteflow.parser.Node;
+import com.only4play.flow.infrastructure.liteflow.parser.INode;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class ChainEventProcessor {
     @EventListener
     public void handleChainCreateForNode(ChainEvents.ChainCreateEvent event) {
         System.out.printf(JSON.toJSONString(event));
-        Node node = event.getFlowParser().flow.getNodes().get(1);
+        INode node = event.getIFlowParser().flow.getNodes().get(1);
 
         NodeCreator creator = new NodeCreator();
         creator.setNodeId(node.getId());

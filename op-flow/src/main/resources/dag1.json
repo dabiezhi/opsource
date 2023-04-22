@@ -1,379 +1,316 @@
 {
-	"cells": [
-		{
-			"id": "89016916-f1e9-430e-8c30-e91f83f9d09a",
-			"shape": "edge",
-			"source": {
-				"cell": "9aa6b260-6393-400d-9e7c-0c6eb68233cd",
-				"port": "510701ff-15d6-485e-99bf-628379a09235"
-			},
-			"target": {
-				"cell": "b369ce3a-0281-4302-99db-7eea0e699748",
-				"port": "8d28bcd3-f39a-4c30-8e07-ced86e2ba9f9"
-			},
-			"zIndex": 0
-		},
-		{
-			"id": "9ddda26a-3bfd-456d-9f61-60bf02ae9578",
-			"shape": "edge",
-			"source": {
-				"cell": "b369ce3a-0281-4302-99db-7eea0e699748",
-				"port": "ef00a253-8a52-4630-bad9-feac5ef27fb9"
-			},
-			"target": {
-				"cell": "3f198029-187c-4c35-900e-b117b92f9103",
-				"port": "eba81bb0-0aad-4bcc-97e6-85b922a72340"
-			},
-			"zIndex": 0
-		},
-		{
-			"id": "da43c1e5-8257-4033-b2b5-bcc01b1494f5",
-			"shape": "edge",
-			"source": {
-				"cell": "3f198029-187c-4c35-900e-b117b92f9103",
-				"port": "cc715157-7197-4cb3-8b27-bc5c0e8e467b"
-			},
-			"target": {
-				"cell": "234f8bf3-e98f-4dc1-9a93-d8cf55bf25cc",
-				"port": "a98e36ce-74cc-4c85-ae9a-b810417e28c8"
-			},
-			"zIndex": 0
-		},
-		{
-			"id": "1a446eb3-47be-4803-92eb-56d040cbec5d",
-			"shape": "edge",
-			"source": {
-				"cell": "234f8bf3-e98f-4dc1-9a93-d8cf55bf25cc",
-				"port": "e7f1a1cd-6d10-4a03-92fd-6c89bb16263e"
-			},
-			"target": {
-				"cell": "cdd8e9da-056e-4909-b413-c05ebe711924",
-				"port": "9cb0a3c7-5dff-44bb-8ec2-768633e59869"
-			},
-			"zIndex": 0
-		},
-		{
-			"id": "2ea5ad9d-5528-45b5-b4f3-eb080adeb709",
-			"shape": "edge",
-			"source": {
-				"cell": "cdd8e9da-056e-4909-b413-c05ebe711924",
-				"port": "48e3ae63-bca3-43f7-adaf-225c71a26eaf"
-			},
-			"target": {
-				"cell": "03b87cc4-ce81-46c7-83d2-30762784926e",
-				"port": "3dddb845-56da-4850-8337-1d628cb97beb"
-			},
-			"zIndex": 0
-		},
-		{
-			"id": "55b73f3b-f180-4c0d-ae66-c0321398d3cb",
-			"shape": "edge",
-			"source": {
-				"cell": "3f198029-187c-4c35-900e-b117b92f9103",
-				"port": "4f4f4750-2ffd-42aa-85aa-28f13aa639ab"
-			},
-			"target": {
-				"cell": "016cd44c-5710-4faf-97d2-c7251f06e635",
-				"port": "c1b64334-5247-444b-b4cc-8772d92a6a03"
-			},
-			"zIndex": 0
-		},
-		{
-			"id": "a59390c9-c543-466f-a233-4d59fbcef269",
-			"shape": "edge",
-			"source": {
-				"cell": "016cd44c-5710-4faf-97d2-c7251f06e635",
-				"port": "9f51e204-fd49-41b6-a184-2c4bd980c78f"
-			},
-			"target": {
-				"cell": "03b87cc4-ce81-46c7-83d2-30762784926e",
-				"port": "3dddb845-56da-4850-8337-1d628cb97beb"
-			},
-			"zIndex": 0
-		},
-		{
-			"id": "9aa6b260-6393-400d-9e7c-0c6eb68233cd",
-			"shape": "start",
-			"data": {
-				"name": "开始",
-				"compId": "StartComponent",
-				"params": {
-				}
-			},
-			"position": {
-				"x": 80,
-				"y": 160
-			},
-			"ports": {
-				"items": [
-					{
-						"group": "out",
-						"id": "510701ff-15d6-485e-99bf-628379a09235"
-					}
-				]
-			},
-			"zIndex": 1
-		},
-		{
-			"id": "b369ce3a-0281-4302-99db-7eea0e699748",
-			"shape": "compNode",
-			"data": {
-				"name": "组件A",
-				"description": "",
-				"compId": "AComponent",
-				"params": {
-					"p1": {
-						"valueSrc": "const",
-						"value": "10",
-						"valueKind": "number"
-					},
-					"p2": {
-						"valueSrc": "const",
-						"value": "10",
-						"valueKind": "number"
-					},
-					"digits": {
-						"valueSrc": "const",
-						"value": "2",
-						"valueKind": "integer"
-					}
-				}
-			},
-			"position": {
-				"x": 278,
-				"y": 160
-			},
-			"ports": {
-				"items": [
-					{
-						"group": "in",
-						"id": "8d28bcd3-f39a-4c30-8e07-ced86e2ba9f9"
-					},
-					{
-						"group": "out",
-						"id": "ef00a253-8a52-4630-bad9-feac5ef27fb9"
-					}
-				]
-			},
-			"zIndex": 7
-		},
-		{
-			"id": "3f198029-187c-4c35-900e-b117b92f9103",
-			"shape": "ifNode",
-			"data": {
-				"name": "条件",
-				"compId": "IfComponent",
-				"params": {
-					"data": {
-						"valueSrc": "customParam",
-						"value": [
-							{
-								"paramKind": "1",
-								"valueKind": "json",
-								"dispKind": "input",
-								"required": true,
-								"id": "a",
-								"name": "a",
-								"mode": "param",
-								"value": "b369ce3a-0281-4302-99db-7eea0e699748",
-								"valueSrc": "node"
-							}
-						],
-						"valueKind": "json"
-					},
-					"script": {
-						"valueSrc": "const",
-						"value": "data.a==1",
-						"valueKind": "char"
-					},
-					"trueNode": {
-						"valueSrc": "nextNode",
-						"value": "234f8bf3-e98f-4dc1-9a93-d8cf55bf25cc",
-						"valueKind": "char"
-					},
-					"falseNode": {
-						"valueSrc": "nextNode",
-						"value": "016cd44c-5710-4faf-97d2-c7251f06e635",
-						"valueKind": "char"
-					}
-				}
-			},
-			"position": {
-				"x": 180,
-				"y": 290
-			},
-			"ports": {
-				"items": [
-					{
-						"group": "in",
-						"id": "eba81bb0-0aad-4bcc-97e6-85b922a72340"
-					},
-					{
-						"group": "bottomOut",
-						"id": "cc715157-7197-4cb3-8b27-bc5c0e8e467b"
-					},
-					{
-						"group": "out",
-						"id": "4f4f4750-2ffd-42aa-85aa-28f13aa639ab"
-					}
-				]
-			},
-			"zIndex": 8
-		},
-
-		{
-			"id": "234f8bf3-e98f-4dc1-9a93-d8cf55bf25cc",
-			"shape": "compNode",
-			"data": {
-				"name": "条件成功B组件",
-				"description": "",
-				"compId": "BComponent",
-				"params": {
-					"p1": {
-						"valueSrc": "const",
-						"value": "20",
-						"valueKind": "number"
-					},
-					"p2": {
-						"valueSrc": "const",
-						"value": "5",
-						"valueKind": "number"
-					},
-					"digits": {
-						"valueSrc": "const",
-						"value": "2",
-						"valueKind": "integer"
-					}
-				}
-			},
-			"position": {
-				"x": 30,
-				"y": 430
-			},
-			"ports": {
-				"items": [
-					{
-						"group": "in",
-						"id": "a98e36ce-74cc-4c85-ae9a-b810417e28c8"
-					},
-					{
-						"group": "out",
-						"id": "e7f1a1cd-6d10-4a03-92fd-6c89bb16263e"
-					}
-				]
-			},
-			"zIndex": 4
-		},
-		{
-			"id": "cdd8e9da-056e-4909-b413-c05ebe711924",
-			"shape": "compNode",
-			"data": {
-				"name": "条件成功组件C",
-				"description": "",
-				"compId": "CComponent",
-				"params": {
-					"p1": {
-						"valueSrc": "const",
-						"value": "9",
-						"valueKind": "number"
-					},
-					"p2": {
-						"valueSrc": "const",
-						"value": "3",
-						"valueKind": "number"
-					},
-					"digits": {
-						"valueSrc": "const",
-						"value": "2",
-						"valueKind": "integer"
-					}
-				}
-			},
-			"position": {
-				"x": 30,
-				"y": 580
-			},
-			"ports": {
-				"items": [
-					{
-						"group": "in",
-						"id": "9cb0a3c7-5dff-44bb-8ec2-768633e59869"
-					},
-					{
-						"group": "out",
-						"id": "48e3ae63-bca3-43f7-adaf-225c71a26eaf"
-					}
-				]
-			},
-			"zIndex": 9
-		},
-		{
-			"id": "016cd44c-5710-4faf-97d2-c7251f06e635",
-			"shape": "compNode",
-			"data": {
-				"name": "条件失败组件D",
-				"description": "",
-				"compId": "DComponent",
-				"params": {
-					"p1": {
-						"valueSrc": "const",
-						"value": "9",
-						"valueKind": "number"
-					},
-					"p2": {
-						"valueSrc": "const",
-						"value": "6",
-						"valueKind": "number"
-					},
-					"digits": {
-						"valueSrc": "const",
-						"value": "2",
-						"valueKind": "integer"
-					}
-				}
-			},
-			"position": {
-				"x": 338,
-				"y": 470
-			},
-			"ports": {
-				"items": [
-					{
-						"group": "in",
-						"id": "c1b64334-5247-444b-b4cc-8772d92a6a03"
-					},
-					{
-						"group": "out",
-						"id": "9f51e204-fd49-41b6-a184-2c4bd980c78f"
-					}
-				]
-			},
-			"zIndex": 10
-		},
-		{
-			"id": "03b87cc4-ce81-46c7-83d2-30762784926e",
-			"shape": "end",
-			"data": {
-				"name": "结束",
-				"compId": "EndComponent",
-				"params": {
-					"outKind": "node",
-					"outNodeId": "cdd8e9da-056e-4909-b413-c05ebe711924"
-				}
-			},
-			"position": {
-				"x": 278,
-				"y": 670
-			},
-			"ports": {
-				"items": [
-					{
-						"group": "in",
-						"id": "3dddb845-56da-4850-8337-1d628cb97beb"
-					}
-				]
-			},
-			"zIndex": 2
-		}
-	]
+  "cells": [
+    {
+      "id": "89016916-f1e9-430e-8c30-e91f83f9d09a",
+      "shape": "edge",
+      "source": {
+        "cell": "9aa6b260-6393-400d-9e7c-0c6eb68233cd",
+        "port": "510701ff-15d6-485e-99bf-628379a09235"
+      },
+      "target": {
+        "cell": "b369ce3a-0281-4302-99db-7eea0e699748",
+        "port": "8d28bcd3-f39a-4c30-8e07-ced86e2ba9f9"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "9ddda26a-3bfd-456d-9f61-60bf02ae9578",
+      "shape": "edge",
+      "source": {
+        "cell": "b369ce3a-0281-4302-99db-7eea0e699748",
+        "port": "ef00a253-8a52-4630-bad9-feac5ef27fb9"
+      },
+      "target": {
+        "cell": "3f198029-187c-4c35-900e-b117b92f9103",
+        "port": "eba81bb0-0aad-4bcc-97e6-85b922a72340"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "da43c1e5-8257-4033-b2b5-bcc01b1494f5",
+      "shape": "edge",
+      "source": {
+        "cell": "3f198029-187c-4c35-900e-b117b92f9103",
+        "port": "cc715157-7197-4cb3-8b27-bc5c0e8e467b"
+      },
+      "target": {
+        "cell": "234f8bf3-e98f-4dc1-9a93-d8cf55bf25cc",
+        "port": "a98e36ce-74cc-4c85-ae9a-b810417e28c8"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "1a446eb3-47be-4803-92eb-56d040cbec5d",
+      "shape": "edge",
+      "source": {
+        "cell": "234f8bf3-e98f-4dc1-9a93-d8cf55bf25cc",
+        "port": "e7f1a1cd-6d10-4a03-92fd-6c89bb16263e"
+      },
+      "target": {
+        "cell": "cdd8e9da-056e-4909-b413-c05ebe711924",
+        "port": "9cb0a3c7-5dff-44bb-8ec2-768633e59869"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "2ea5ad9d-5528-45b5-b4f3-eb080adeb709",
+      "shape": "edge",
+      "source": {
+        "cell": "cdd8e9da-056e-4909-b413-c05ebe711924",
+        "port": "48e3ae63-bca3-43f7-adaf-225c71a26eaf"
+      },
+      "target": {
+        "cell": "03b87cc4-ce81-46c7-83d2-30762784926e",
+        "port": "3dddb845-56da-4850-8337-1d628cb97beb"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "55b73f3b-f180-4c0d-ae66-c0321398d3cb",
+      "shape": "edge",
+      "source": {
+        "cell": "3f198029-187c-4c35-900e-b117b92f9103",
+        "port": "4f4f4750-2ffd-42aa-85aa-28f13aa639ab"
+      },
+      "target": {
+        "cell": "016cd44c-5710-4faf-97d2-c7251f06e635",
+        "port": "c1b64334-5247-444b-b4cc-8772d92a6a03"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "a59390c9-c543-466f-a233-4d59fbcef269",
+      "shape": "edge",
+      "source": {
+        "cell": "016cd44c-5710-4faf-97d2-c7251f06e635",
+        "port": "9f51e204-fd49-41b6-a184-2c4bd980c78f"
+      },
+      "target": {
+        "cell": "03b87cc4-ce81-46c7-83d2-30762784926e",
+        "port": "3dddb845-56da-4850-8337-1d628cb97beb"
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "9aa6b260-6393-400d-9e7c-0c6eb68233cd",
+      "shape": "start",
+      "data": {
+        "name": "开始",
+        "compId": "StartComponent",
+        "params": {
+        },
+        "payload": {
+        }
+      },
+      "position": {
+        "x": 80,
+        "y": 160
+      },
+      "ports": {
+        "items": [
+          {
+            "group": "out",
+            "id": "510701ff-15d6-485e-99bf-628379a09235"
+          }
+        ]
+      },
+      "zIndex": 1
+    },
+    {
+      "id": "b369ce3a-0281-4302-99db-7eea0e699748",
+      "shape": "compNode",
+      "data": {
+        "name": "组件A",
+        "description": "",
+        "compId": "AComponent",
+        "params": {
+        },
+        "payload": {
+        }
+      },
+      "position": {
+        "x": 278,
+        "y": 160
+      },
+      "ports": {
+        "items": [
+          {
+            "group": "in",
+            "id": "8d28bcd3-f39a-4c30-8e07-ced86e2ba9f9"
+          },
+          {
+            "group": "out",
+            "id": "ef00a253-8a52-4630-bad9-feac5ef27fb9"
+          }
+        ]
+      },
+      "zIndex": 7
+    },
+    {
+      "id": "3f198029-187c-4c35-900e-b117b92f9103",
+      "shape": "ifNode",
+      "data": {
+        "name": "条件",
+        "compId": "IfComponent",
+        "params": {
+          "field": "params.b",
+          "value": "3",
+          "condition": "<",
+          "trueNode": "234f8bf3-e98f-4dc1-9a93-d8cf55bf25cc",
+          "falseNode": "016cd44c-5710-4faf-97d2-c7251f06e635"
+        },
+        "payload": {
+        }
+      },
+      "position": {
+        "x": 180,
+        "y": 290
+      },
+      "ports": {
+        "items": [
+          {
+            "group": "in",
+            "id": "eba81bb0-0aad-4bcc-97e6-85b922a72340"
+          },
+          {
+            "group": "bottomOut",
+            "id": "cc715157-7197-4cb3-8b27-bc5c0e8e467b"
+          },
+          {
+            "group": "out",
+            "id": "4f4f4750-2ffd-42aa-85aa-28f13aa639ab"
+          }
+        ]
+      },
+      "zIndex": 8
+    },
+    {
+      "id": "234f8bf3-e98f-4dc1-9a93-d8cf55bf25cc",
+      "shape": "compNode",
+      "data": {
+        "name": "条件成功B组件",
+        "description": "",
+        "compId": "BComponent",
+        "params": {
+          "p1": {
+            "valueSrc": "const",
+            "value": "20",
+            "valueKind": "number"
+          },
+          "p2": {
+            "valueSrc": "const",
+            "value": "5",
+            "valueKind": "number"
+          },
+          "digits": {
+            "valueSrc": "const",
+            "value": "2",
+            "valueKind": "integer"
+          }
+        }
+      },
+      "position": {
+        "x": 30,
+        "y": 430
+      },
+      "ports": {
+        "items": [
+          {
+            "group": "in",
+            "id": "a98e36ce-74cc-4c85-ae9a-b810417e28c8"
+          },
+          {
+            "group": "out",
+            "id": "e7f1a1cd-6d10-4a03-92fd-6c89bb16263e"
+          }
+        ]
+      },
+      "zIndex": 4
+    },
+    {
+      "id": "cdd8e9da-056e-4909-b413-c05ebe711924",
+      "shape": "compNode",
+      "data": {
+        "name": "条件成功组件C",
+        "description": "",
+        "compId": "CComponent",
+        "params": {
+        },
+        "payload": {
+        }
+      },
+      "position": {
+        "x": 30,
+        "y": 580
+      },
+      "ports": {
+        "items": [
+          {
+            "group": "in",
+            "id": "9cb0a3c7-5dff-44bb-8ec2-768633e59869"
+          },
+          {
+            "group": "out",
+            "id": "48e3ae63-bca3-43f7-adaf-225c71a26eaf"
+          }
+        ]
+      },
+      "zIndex": 9
+    },
+    {
+      "id": "016cd44c-5710-4faf-97d2-c7251f06e635",
+      "shape": "compNode",
+      "data": {
+        "name": "条件失败组件D",
+        "description": "",
+        "compId": "DComponent",
+        "params": {
+        },
+        "payload": {
+        }
+      },
+      "position": {
+        "x": 338,
+        "y": 470
+      },
+      "ports": {
+        "items": [
+          {
+            "group": "in",
+            "id": "c1b64334-5247-444b-b4cc-8772d92a6a03"
+          },
+          {
+            "group": "out",
+            "id": "9f51e204-fd49-41b6-a184-2c4bd980c78f"
+          }
+        ]
+      },
+      "zIndex": 10
+    },
+    {
+      "id": "03b87cc4-ce81-46c7-83d2-30762784926e",
+      "shape": "end",
+      "data": {
+        "name": "结束",
+        "compId": "EndComponent",
+        "params": {
+        },
+        "payload": {
+        }
+      },
+      "position": {
+        "x": 278,
+        "y": 670
+      },
+      "ports": {
+        "items": [
+          {
+            "group": "in",
+            "id": "3dddb845-56da-4850-8337-1d628cb97beb"
+          }
+        ]
+      },
+      "zIndex": 2
+    }
+  ]
 }

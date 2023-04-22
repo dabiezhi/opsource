@@ -1,11 +1,11 @@
 package com.only4play.flow.infrastructure.liteflow.parser;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.only4play.flow.infrastructure.liteflow.emums.NodeKind;
@@ -14,25 +14,25 @@ import com.only4play.flow.infrastructure.liteflow.emums.NodeKind;
  * @author tsy
  * Created by on 2023-04-18 10:14 AM
  */
-public class FlowParser {
+public class IFlowParser {
 
-    public final LinkedHashMap<String, List<Node>> nodeNextMap       = new LinkedHashMap<>();
-    public final LinkedHashMap<String, List<Node>> nodePreMap        = new LinkedHashMap<>();
-    public final LinkedHashMap<String, Integer>    flowToNodeCounter = new LinkedHashMap<>();
-    public final LinkedHashMap<String, NodeGroup>  nodeGroupMap      = new LinkedHashMap<>();
-    public final Flow                              flow              = Flow.getInstance();
-    private final List<String>                     cmpDataList       = new ArrayList<>();
+    public final LinkedHashMap<String, List<INode>> nodeNextMap       = new LinkedHashMap<>();
+    public final LinkedHashMap<String, List<INode>> nodePreMap        = new LinkedHashMap<>();
+    public final LinkedHashMap<String, Integer>     flowToNodeCounter = new LinkedHashMap<>();
+    public final LinkedHashMap<String, INodeGroup>  nodeGroupMap      = new LinkedHashMap<>();
 
-    public static FlowParser of(String config) {
-        return new FlowParser().parseFlow(config);
+    public final IFlow                              flow              = IFlow.getInstance();
+
+    public static IFlowParser of1(String config) {
+        return new IFlowParser().parseFlow(config);
     }
 
-    public FlowParser parseFlow(String config) {
+    public IFlowParser parseFlow(String config) {
         JSONObject configJson = JSONObject.parseObject(config);
         JSONArray cells = configJson.getJSONArray("cells");
         List<JSONObject> edges = new ArrayList<>();
-        LinkedHashMap<String, Node> nodeMap = new LinkedHashMap<>();
-        Node startNode = null;
+        LinkedHashMap<String, INode> nodeMap = new LinkedHashMap<>();
+        INode startNode = null;
         for (int i = 0; i < cells.size(); i++) {
             JSONObject cell = cells.getJSONObject(i);
             String id = cell.getString("id");
@@ -70,39 +70,33 @@ public class FlowParser {
     public String genEL() {
         StringBuilder bld = new StringBuilder("");
         String el = this.genThenEL(flow.getNodes());
-        for (String cmpData : cmpDataList) {
-            bld.append(cmpData);
-            bld.append("\n");
-        }
         bld.append(el);
         return bld.toString();
     }
 
-    private String genNodeEL(Node node) {
+    private String genNodeEL(INode node) {
         StringBuilder bld = new StringBuilder("");
         if (node.getData() == null || node.getData().getParams() == null) {
             bld.append(node.getCompId());
         } else {
-            String cpmDataName = "cmpData" + (cmpDataList.size() + 1);
             if (NodeKind.IFNODE == node.getKind()) {
-                bld.append("IF(" + node.getCompId() + ".tag(\"" + node.getId() + "\")" + ".data("
-                           + cpmDataName + ")");
-                JSONObject params = node.getData().getParams();
-                String trueNode = params.getJSONObject("trueNode").getString("value");
-                String falseNode = params.getJSONObject("falseNode").getString("value");
-                List<NodeGroup> trueNodeGroup = node.getGroups().stream()
+                bld.append("IF(" + node.getCompId() + ".tag(\"" + node.getId() + "\")");
+                JSONObject params = JSON.parseObject(node.getData().getParams());
+                String trueNode = params.getString("trueNode");
+                String falseNode = params.getString("falseNode");
+                List<INodeGroup> trueNodeGroup = node.getGroups().stream()
                     .filter(group -> group.getNodes().stream()
                         .filter(groupNode -> groupNode.getId().equals(trueNode))
                         .collect(Collectors.toList()).size() > 0)
                     .collect(Collectors.toList());
-                List<NodeGroup> falseNodeGroup = node.getGroups().stream()
+                List<INodeGroup> falseNodeGroup = node.getGroups().stream()
                     .filter(group -> group.getNodes().stream()
                         .filter(groupNode -> groupNode.getId().equals(falseNode))
                         .collect(Collectors.toList()).size() > 0)
                     .collect(Collectors.toList());
                 if (trueNodeGroup.size() > 0) {
                     bld.append(",");
-                    for (NodeGroup g : trueNodeGroup) {
+                    for (INodeGroup g : trueNodeGroup) {
                         if (node.getGroups().indexOf(g) > 0) {
                             bld.append(",");
                         }
@@ -110,7 +104,7 @@ public class FlowParser {
                     }
                 }
                 if (falseNodeGroup.size() > 0) {
-                    for (NodeGroup g : falseNodeGroup) {
+                    for (INodeGroup g : falseNodeGroup) {
                         if (node.getGroups().indexOf(g) > 0) {
                             bld.append(",");
                         }
@@ -119,14 +113,13 @@ public class FlowParser {
                 }
                 bld.append(")");
             } else {
-                bld.append(node.getCompId() + ".tag(\"" + node.getId() + "\")" + ".data("
-                           + cpmDataName + ")");
+                bld.append(node.getCompId() + ".tag(\"" + node.getId() + "\")");
                 if (node.getGroups().size() == 1) {
                     bld.append(",");
                     bld.append(this.genThenEL(node.getGroups().get(0).getNodes()));
                 } else if (node.getGroups().size() > 1) {
                     bld.append(",WHEN(");
-                    for (NodeGroup g : node.getGroups()) {
+                    for (INodeGroup g : node.getGroups()) {
                         if (node.getGroups().indexOf(g) > 0) {
                             bld.append(",");
                         }
@@ -139,10 +132,10 @@ public class FlowParser {
         return bld.toString();
     }
 
-    private String genThenEL(List<Node> nodes) {
+    private String genThenEL(List<INode> nodes) {
         StringBuilder bld = new StringBuilder("");
         bld.append("THEN(");
-        for (Node gNode : nodes) {
+        for (INode gNode : nodes) {
             String gNodeEL = this.genNodeEL(gNode);
             if (nodes.indexOf(gNode) > 0) {
                 bld.append(",");
@@ -153,23 +146,23 @@ public class FlowParser {
         return bld.toString();
     }
 
-    private Node createNode(JSONObject cell) {
+    private INode createNode(JSONObject cell) {
         JSONObject data = cell.getJSONObject("data");
         String shape = cell.getString("shape");
-        Node node = new Node();
+        INode node = new INode();
         node.setId(cell.getString("id"));
         node.setCompId(data.getString("compId"));
         node.setName(data.getString("name"));
         node.setKind(NodeKind.getIns(shape));
-        node.setData(NodeData.getInstance(data.getJSONObject("params")));
+        node.setData(INodeData.getInstance(data.getString("params"), data.getString("payload")));
         return node;
     }
 
-    private void initNode(Node node, NodeGroup parentGroup) {
-        List<Node> nextNodes = nodeNextMap.get(node.getId());
-        List<Node> preNodes = nodePreMap.get(node.getId());
+    private void initNode(INode node, INodeGroup parentGroup) {
+        List<INode> nextNodes = nodeNextMap.get(node.getId());
+        List<INode> preNodes = nodePreMap.get(node.getId());
 
-        NodeGroup realNodeGroup = parentGroup;
+        INodeGroup realNodeGroup = parentGroup;
         if (preNodes != null && preNodes.size() > 1) {
             if (!flowToNodeCounter.containsKey(node.getId())) {
                 flowToNodeCounter.put(node.getId(), 0);
@@ -193,12 +186,12 @@ public class FlowParser {
             return;
         }
         if (nextNodes.size() == 1) {
-            NodeGroup grp = getNodeGroup(nextNodes.get(0));
+            INodeGroup grp = getNodeGroup(nextNodes.get(0));
             this.initNode(nextNodes.get(0), grp);
         } else {
             this.nodeGroupMap.put(node.getId(), parentGroup);
-            for (Node nextNode : nextNodes) {
-                NodeGroup group = NodeGroup.getInstance();
+            for (INode nextNode : nextNodes) {
+                INodeGroup group = INodeGroup.getInstance();
                 this.initNode(nextNode, group);
                 if (group.getNodes().size() > 0) {
                     node.getGroups().add(group);
@@ -208,14 +201,14 @@ public class FlowParser {
         }
     }
 
-    private NodeGroup getNodeGroup(Node node) {
-        NodeGroup group = null;
+    private INodeGroup getNodeGroup(INode node) {
+        INodeGroup group = null;
         List<List<String>> flowLines = new ArrayList<>();
-        List<Node> preNodes = nodePreMap.get(node.getId());
+        List<INode> preNodes = nodePreMap.get(node.getId());
         if (preNodes == null || preNodes.size() == 0) {
             return null;
         }
-        for (Node preNode : preNodes) {
+        for (INode preNode : preNodes) {
             flowLines.add(this.getPreFlowLine(preNode));
         }
         String crossNodeId = this.getCrossNodeId(flowLines);
@@ -223,14 +216,14 @@ public class FlowParser {
         return group;
     }
 
-    private List<String> getPreFlowLine(Node node) {
+    private List<String> getPreFlowLine(INode node) {
         List<String> flowLine = new ArrayList<String>();
         flowLine.add(node.getId());
-        List<Node> preNodes = this.nodePreMap.get(node.getId());
+        List<INode> preNodes = this.nodePreMap.get(node.getId());
         if (preNodes == null || preNodes.size() == 0) {
             return flowLine;
         }
-        for (Node preNode : preNodes) {
+        for (INode preNode : preNodes) {
             flowLine.addAll(this.getPreFlowLine(preNode));
         }
         return flowLine;
