@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: root
-    password: root123456
+    password: root
     url: jdbc:mysql://127.0.0.1:3306/poseidon?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -16,7 +16,7 @@ spring:
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     show-sql: true
-    generate-ddl: true
+    generate-ddl: false
     open-in-view: false
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:

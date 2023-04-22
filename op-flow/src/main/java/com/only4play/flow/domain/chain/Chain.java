@@ -4,37 +4,27 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.only4play.codegen.processor.api.GenCreateRequest;
-import com.only4play.codegen.processor.api.GenQueryRequest;
-import com.only4play.codegen.processor.api.GenResponse;
-import com.only4play.codegen.processor.api.GenUpdateRequest;
-import com.only4play.codegen.processor.controller.GenController;
 import com.only4play.codegen.processor.creator.GenCreator;
-import com.only4play.codegen.processor.creator.IgnoreCreator;
 import com.only4play.codegen.processor.mapper.GenMapper;
 import com.only4play.codegen.processor.query.GenQuery;
-import com.only4play.codegen.processor.repository.GenRepository;
-import com.only4play.codegen.processor.service.GenService;
-import com.only4play.codegen.processor.service.GenServiceImpl;
 import com.only4play.codegen.processor.updater.GenUpdater;
 import com.only4play.codegen.processor.updater.IgnoreUpdater;
 import com.only4play.codegen.processor.vo.GenVo;
 import com.only4play.common.annotation.FieldDesc;
 import com.only4play.common.constants.ValidStatus;
 import com.only4play.flow.domain.chain.events.ChainEvents;
+import com.only4play.flow.infrastructure.liteflow.parser.Flow;
 import com.only4play.flow.infrastructure.liteflow.parser.FlowParser;
 import com.only4play.jpa.converter.ValidStatusConverter;
 import com.only4play.jpa.support.BaseJpaAggregate;
 
+import cn.hutool.core.lang.Assert;
 import lombok.Data;
-import org.hibernate.annotations.Where;
 
 @GenVo(pkgName = "com.only4play.flow.domain.chain.vo")
 @GenCreator(pkgName = "com.only4play.flow.domain.chain.creator")
 @GenUpdater(pkgName = "com.only4play.flow.domain.chain.updater")
 @GenQuery(pkgName = "com.only4play.flow.domain.chain.query")
-@GenMapper(pkgName = "com.only4play.flow.domain.chain.mapper")
-@Where(clause = "is_deleted = 0")
 @Entity
 @Table(name = "chain")
 @Data
@@ -73,8 +63,10 @@ public class Chain extends BaseJpaAggregate {
 
     public void valid() {
         this.setValidStatus(ValidStatus.VALID);
-        this.setElData(FlowParser.of().genEL());
-        registerEvent(new ChainEvents.ChainCreateEvent(this));
+        Assert.notBlank(this.getFrontJson());
+        FlowParser flowParser = FlowParser.of(this.getFrontJson());
+        this.setElData(flowParser.genEL());
+        registerEvent(new ChainEvents.ChainCreateEvent(this, flowParser));
     }
 
     public void invalid() {

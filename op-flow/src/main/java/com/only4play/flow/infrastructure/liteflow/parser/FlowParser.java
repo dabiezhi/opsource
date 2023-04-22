@@ -16,18 +16,18 @@ import com.only4play.flow.infrastructure.liteflow.emums.NodeKind;
  */
 public class FlowParser {
 
-    private final LinkedHashMap<String, List<Node>> nodeNextMap       = new LinkedHashMap<>();
-    private final LinkedHashMap<String, List<Node>> nodePreMap        = new LinkedHashMap<>();
-    private final LinkedHashMap<String, Integer>    flowToNodeCounter = new LinkedHashMap<>();
-    private final LinkedHashMap<String, NodeGroup>  nodeGroupMap      = new LinkedHashMap<>();
-    private final Flow                              flow              = Flow.getInstance();
-    private final List<String>                      cmpDataList       = new ArrayList<>();
+    public final LinkedHashMap<String, List<Node>> nodeNextMap       = new LinkedHashMap<>();
+    public final LinkedHashMap<String, List<Node>> nodePreMap        = new LinkedHashMap<>();
+    public final LinkedHashMap<String, Integer>    flowToNodeCounter = new LinkedHashMap<>();
+    public final LinkedHashMap<String, NodeGroup>  nodeGroupMap      = new LinkedHashMap<>();
+    public final Flow                              flow              = Flow.getInstance();
+    private final List<String>                     cmpDataList       = new ArrayList<>();
 
-    public static FlowParser of() {
-        return new FlowParser();
+    public static FlowParser of(String config) {
+        return new FlowParser().parseFlow(config);
     }
 
-    public Flow parseFlow(String config) {
+    public FlowParser parseFlow(String config) {
         JSONObject configJson = JSONObject.parseObject(config);
         JSONArray cells = configJson.getJSONArray("cells");
         List<JSONObject> edges = new ArrayList<>();
@@ -64,7 +64,7 @@ public class FlowParser {
         if (startNode != null) {
             this.initNode(startNode, null);
         }
-        return flow;
+        return this;
     }
 
     public String genEL() {

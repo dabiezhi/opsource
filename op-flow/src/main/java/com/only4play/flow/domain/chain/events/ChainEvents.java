@@ -1,6 +1,7 @@
 package com.only4play.flow.domain.chain.events;
 
 import com.only4play.flow.domain.chain.Chain;
+import com.only4play.flow.infrastructure.liteflow.parser.FlowParser;
 
 import lombok.Value;
 
@@ -12,6 +13,7 @@ public interface ChainEvents {
 
     @Value
     class ChainCreateEvent {
-        private Chain chain;
+        Chain      chain;
+        FlowParser flowParser;
     }
 }
