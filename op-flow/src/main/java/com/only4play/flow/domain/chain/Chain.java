@@ -58,16 +58,15 @@ public class Chain extends BaseJpaAggregate {
 
     public void init() {
         this.setValidStatus(ValidStatus.INVALID);
+        this.setEnv("dev");
         Assert.notBlank(this.getFrontJson());
-        IFlowParser parser = IFlowParser.of1(this.getFrontJson());
+        IFlowParser parser = IFlowParser.of(this.getFrontJson());
         this.setElData(parser.genEL());
         registerEvent(new ChainEvents.ChainCreateEvent(this, parser));
     }
 
     public void valid() {
         this.setValidStatus(ValidStatus.VALID);
-        IFlowParser parser = IFlowParser.of1(this.getFrontJson());
-        this.setElData(parser.genEL());
     }
 
     public void invalid() {

@@ -23,13 +23,7 @@ public class ChainCreateRequest implements Request {
     @Schema(title = "链路描述")
     private String chainDesc;
 
-    @Schema(title = "链路el数据")
-    private String elData;
-
     @Schema(title = "页面json")
     private String frontJson;
-
-    @Schema(title = "有效状态 1-有效,0-失效")
-    private Integer validStatus;
 
 }

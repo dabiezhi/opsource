@@ -28,8 +28,8 @@ public class Node extends BaseJpaAggregate {
     @FieldDesc(name = "节点名称")
     private String nodeName;
 
-    @FieldDesc(name = "组件类型")
-    private String cmpType;
+    @FieldDesc(name = "组件id")
+    private String cmpId;
 
     @FieldDesc(name = "节点属性参数")
     private String params;

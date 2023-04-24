@@ -28,7 +28,7 @@ public class ChainEventProcessor {
         NodeCreator creator = new NodeCreator();
         creator.setNodeId(node.getId());
         creator.setNodeName(node.getName());
-        creator.setCmpType(node.getCompId());
+        creator.setCmpId(node.getCompId());
         creator.setParams(JSON.toJSONString(node.getData()));
         creator.setPayload("1212");
         iNodeService.createNode(creator);

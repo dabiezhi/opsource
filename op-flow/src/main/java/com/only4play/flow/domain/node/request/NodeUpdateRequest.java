@@ -14,8 +14,8 @@ public class NodeUpdateRequest implements Request {
     @Schema(title = "节点名称")
     private String nodeName;
 
-    @Schema(title = "组件类型")
-    private String cmpType;
+    @Schema(title = "组件Id")
+    private String cmpId;
 
     @Schema(title = "节点属性参数")
     private String params;
@@ -41,12 +41,12 @@ public class NodeUpdateRequest implements Request {
         this.nodeName = nodeName;
     }
 
-    public String getCmpType() {
-        return cmpType;
+    public String getCmpId() {
+        return cmpId;
     }
 
-    public void setCmpType(String cmpType) {
-        this.cmpType = cmpType;
+    public void setCmpId(String cmpId) {
+        this.cmpId = cmpId;
     }
 
     public String getParams() {

@@ -17,7 +17,7 @@ public class Test {
     public static void main(String[] args) {
         ClassPathResource classPathResource = new ClassPathResource("dag1.json");
         String rule = IoUtil.readUtf8(classPathResource.getStream());
-        IFlowParser parser = IFlowParser.of1(rule);
+        IFlowParser parser = IFlowParser.of(rule);
         List<INode> nodes = parser.flow.getNodes();
         String el = parser.genEL();
         System.out.println(el);

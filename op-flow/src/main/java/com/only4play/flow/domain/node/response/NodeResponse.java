@@ -20,7 +20,7 @@ public class NodeResponse extends AbstractJpaResponse {
   @Schema(
       title = "组件类型"
   )
-  private String cmpType;
+  private String cmpId;
 
   @Schema(
       title = "节点属性参数"
@@ -48,12 +48,12 @@ public class NodeResponse extends AbstractJpaResponse {
     this.nodeName = nodeName;
   }
 
-  public String getCmpType() {
-    return cmpType;
+  public String getCmpId() {
+    return cmpId;
   }
 
-  public void setCmpType(String cmpType) {
-    this.cmpType = cmpType;
+  public void setCmpId(String cmpId) {
+    this.cmpId = cmpId;
   }
 
   public String getParams() {

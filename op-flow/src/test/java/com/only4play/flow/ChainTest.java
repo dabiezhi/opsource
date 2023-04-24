@@ -33,11 +33,9 @@ public class ChainTest {
         request.setChainId(UUID.randomUUID().toString());
         request.setChainName("演示流程");
         request.setChainDesc("用于演示");
-        request.setElData("");
-        request.setFrontJson("");
-        request.setValidStatus(0);
+        request.setFrontJson(Dag.json);
         Result<Long> chain = chainController.createChain(request);
-//        System.out.println(Result.toJSONString(chain));
+        //        System.out.println(Result.toJSONString(chain));
     }
 
 
@@ -51,10 +49,9 @@ public class ChainTest {
         request.setChainName("演示流程");
         request.setChainDesc("用于演示");
         request.setElData("234");
-        request.setFrontJson("");
         request.setEnv("dev");
         Result<String> chain = chainController.updateChain(request);
-//        System.out.println(Result.toJSONString(chain));
+        //        System.out.println(Result.toJSONString(chain));
     }
 
 
@@ -74,7 +71,7 @@ public class ChainTest {
     public void testFindById() {
         //TODO: Test goes here...
         Result<ChainResponse> byId = chainController.findById(1L);
-//        System.out.println(Result.toJSONString(byId));
+        //        System.out.println(Result.toJSONString(byId));
     }
 
     @Test
@@ -83,8 +80,8 @@ public class ChainTest {
         PageRequestWrapper<ChainQueryRequest> request = new PageRequestWrapper<>();
         request.setPage(1);
         request.setPageSize(10);
-//        Result<PageResult<ChainResponse>> byPage = chainController.findByPage(request);
-//        System.out.println(Result.toJSONString(byPage));
+        //        Result<PageResult<ChainResponse>> byPage = chainController.findByPage(request);
+        //        System.out.println(Result.toJSONString(byPage));
     }
 
 }

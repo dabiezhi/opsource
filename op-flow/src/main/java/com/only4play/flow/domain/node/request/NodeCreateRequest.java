@@ -18,9 +18,9 @@ public class NodeCreateRequest implements Request {
   private String nodeName;
 
   @Schema(
-      title = "组件类型"
+      title = "组件Id"
   )
-  private String cmpType;
+  private String cmpId;
 
   @Schema(
       title = "节点属性参数"
@@ -48,13 +48,7 @@ public class NodeCreateRequest implements Request {
     this.nodeName = nodeName;
   }
 
-  public String getCmpType() {
-    return cmpType;
-  }
 
-  public void setCmpType(String cmpType) {
-    this.cmpType = cmpType;
-  }
 
   public String getParams() {
     return params;

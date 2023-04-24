@@ -23,7 +23,7 @@ public class IFlowParser {
 
     public final IFlow                              flow              = IFlow.getInstance();
 
-    public static IFlowParser of1(String config) {
+    public static IFlowParser of(String config) {
         return new IFlowParser().parseFlow(config);
     }
 
