@@ -1,6 +1,6 @@
-package com.only4play.flow.domain.chain.events;
+package com.only4play.flow.application.chain.events;
 
-import com.only4play.flow.domain.chain.Chain;
+import com.only4play.flow.infrastructure.repository.chain.dataobject.Chain;
 import com.only4play.flow.infrastructure.liteflow.parser.IFlowParser;
 
 import lombok.Value;

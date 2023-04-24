@@ -1,4 +1,4 @@
-package com.only4play.flow.domain.chain;
+package com.only4play.flow.infrastructure.repository.chain.dataobject;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import com.only4play.codegen.processor.updater.IgnoreUpdater;
 import com.only4play.codegen.processor.vo.GenVo;
 import com.only4play.common.annotation.FieldDesc;
 import com.only4play.common.constants.ValidStatus;
-import com.only4play.flow.domain.chain.events.ChainEvents;
+import com.only4play.flow.application.chain.events.ChainEvents;
 import com.only4play.flow.infrastructure.liteflow.parser.IFlowParser;
 import com.only4play.jpa.converter.ValidStatusConverter;
 import com.only4play.jpa.support.BaseJpaAggregate;

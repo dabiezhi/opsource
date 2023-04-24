@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import com.only4play.common.model.PageRequestWrapper;
 import com.only4play.common.model.Result;
-import com.only4play.flow.controller.ChainController;
 import com.only4play.flow.domain.chain.request.ChainCreateRequest;
 import com.only4play.flow.domain.chain.request.ChainQueryRequest;
 import com.only4play.flow.domain.chain.request.ChainUpdateRequest;

@@ -1,4 +1,4 @@
-package com.only4play.flow.domain.chain.events;
+package com.only4play.flow.application.chain.events;
 
 import com.alibaba.fastjson.JSON;
 import com.only4play.flow.domain.node.creator.NodeCreator;
