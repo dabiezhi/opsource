@@ -13,6 +13,7 @@ import com.only4play.flow.domain.chain.updater.ChainUpdater;
 import com.only4play.flow.domain.chain.vo.ChainVO;
 import com.only4play.jpa.support.EntityOperations;
 import com.querydsl.core.BooleanBuilder;
+
 import java.lang.Long;
 import java.lang.Override;
 import java.util.Optional;
@@ -37,11 +38,8 @@ public class ChainServiceImpl implements IChainService {
      */
     @Override
     public Long createChain(ChainCreator creator) {
-        //创建模板
-        Optional<Chain> chain = EntityOperations.doCreate(chainRepository)
-            .create(() -> ChainMapper.INSTANCE.dtoToEntity(creator)).update(e -> e.init())
-            .execute();
-        //如果是发布状态，保留node表信息
+        Optional<Chain> chain = EntityOperations.doCreate(chainRepository).create(
+                () -> ChainMapper.INSTANCE.dtoToEntity(creator)).update(e -> e.init()).execute();
         return chain.isPresent() ? chain.get().getId() : 0;
     }
 
@@ -50,8 +48,10 @@ public class ChainServiceImpl implements IChainService {
      */
     @Override
     public void updateChain(ChainUpdater updater) {
-        EntityOperations.doUpdate(chainRepository).loadById(updater.getId())
-            .update(e -> updater.updateChain(e)).execute();
+        EntityOperations.doUpdate(chainRepository)
+                .loadById(updater.getId())
+                .update(e -> updater.updateChain(e))
+                .execute();
     }
 
     /**
@@ -93,8 +93,9 @@ public class ChainServiceImpl implements IChainService {
     @Override
     public Page<ChainVO> findByPage(PageWrapper<ChainQuery> query) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        Page<Chain> page = chainRepository.findAll(booleanBuilder, PageRequest.of(
-            query.getPage() - 1, query.getPageSize(), Sort.by(Sort.Direction.DESC, "createdAt")));
+        Page<Chain> page = chainRepository.findAll(booleanBuilder,
+                                                   PageRequest.of(query.getPage() - 1, query.getPageSize(),
+                                                                  Sort.by(Sort.Direction.DESC, "createdAt")));
         return page.map(ChainVO::new);
     }
 }

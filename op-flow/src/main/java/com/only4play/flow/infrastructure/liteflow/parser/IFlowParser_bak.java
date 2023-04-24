@@ -1,7 +1,6 @@
 package com.only4play.flow.infrastructure.liteflow.parser;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,26 +10,24 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.only4play.flow.infrastructure.liteflow.emums.NodeKind;
 
-import lombok.SneakyThrows;
-
 /**
  * @author tsy
  * Created by on 2023-04-18 10:14 AM
  */
-public class IFlowParser {
+public class IFlowParser_bak {
 
     public final LinkedHashMap<String, List<INode>> nodeNextMap = new LinkedHashMap<>();
     public final LinkedHashMap<String, List<INode>> nodePreMap = new LinkedHashMap<>();
     public final LinkedHashMap<String, Integer> flowToNodeCounter = new LinkedHashMap<>();
     public final LinkedHashMap<String, INodeGroup> nodeGroupMap = new LinkedHashMap<>();
-    public final IFlow flow = IFlow.getInstance();
-    private List<String> cmpDataList = new ArrayList<>();
 
-    public static IFlowParser of(String config) {
-        return new IFlowParser().parseFlow(config);
+    public final IFlow flow = IFlow.getInstance();
+
+    public static IFlowParser_bak of(String config) {
+        return new IFlowParser_bak().parseFlow(config);
     }
 
-    public IFlowParser parseFlow(String config) {
+    public IFlowParser_bak parseFlow(String config) {
         JSONObject configJson = JSONObject.parseObject(config);
         JSONArray cells = configJson.getJSONArray("cells");
         List<JSONObject> edges = new ArrayList<>();
@@ -73,27 +70,17 @@ public class IFlowParser {
     public String genEL() {
         StringBuilder bld = new StringBuilder("");
         String el = this.genThenEL(flow.getNodes());
-        for (String cmpData : cmpDataList) {
-            bld.append(cmpData);
-            bld.append("\n");
-        }
-        bld.append("\n");
         bld.append(el);
         return bld.toString();
     }
 
-    @SneakyThrows
     private String genNodeEL(INode node) {
         StringBuilder bld = new StringBuilder("");
         if (node.getData() == null || node.getData().getParams() == null) {
             bld.append(node.getCompId());
         } else {
-            String cpmDataName = "cmpData" + (cmpDataList.size() + 1);
-            String cpmDataStr = Base64.getEncoder().encodeToString(
-                    JSONObject.toJSONString(node.getData()).getBytes("UTF-8"));
-            cmpDataList.add(cpmDataName + " = '" + cpmDataStr + "';");
             if (NodeKind.IFNODE == node.getKind()) {
-                bld.append("IF(" + node.getCompId() + ".tag(\"" + node.getId() + "\")" + ".data(" + cpmDataName + ")");
+                bld.append("IF(" + node.getCompId() + ".tag(\"" + node.getId() + "\")");
                 JSONObject params = JSON.parseObject(node.getData().getParams());
                 String trueNode = params.getString("trueNode");
                 String falseNode = params.getString("falseNode");
@@ -126,7 +113,7 @@ public class IFlowParser {
                 }
                 bld.append(")");
             } else {
-                bld.append(node.getCompId() + ".tag(\"" + node.getId() + "\")" + ".data(" + cpmDataName + ")");
+                bld.append(node.getCompId() + ".tag(\"" + node.getId() + "\")");
                 if (node.getGroups().size() == 1) {
                     bld.append(",");
                     bld.append(this.genThenEL(node.getGroups().get(0).getNodes()));

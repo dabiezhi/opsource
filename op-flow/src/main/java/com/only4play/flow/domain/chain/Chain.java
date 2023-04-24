@@ -29,25 +29,25 @@ import lombok.Data;
 public class Chain extends BaseJpaAggregate {
 
     @FieldDesc(name = "应用名称")
-    private String      applicationName;
+    private String applicationName;
 
     @FieldDesc(name = "链路id")
-    private String      chainId;
+    private String chainId;
 
     @FieldDesc(name = "链路名称")
-    private String      chainName;
+    private String chainName;
 
     @FieldDesc(name = "链路描述")
-    private String      chainDesc;
+    private String chainDesc;
 
     @FieldDesc(name = "链路el数据")
-    private String      elData;
+    private String elData;
 
     @FieldDesc(name = "页面json")
-    private String      frontJson;
+    private String frontJson;
 
     @FieldDesc(name = "环境变量")
-    private String      env;
+    private String env;
 
     @Convert(converter = ValidStatusConverter.class)
     @IgnoreUpdater
@@ -72,4 +72,5 @@ public class Chain extends BaseJpaAggregate {
     public void invalid() {
         this.setValidStatus(ValidStatus.INVALID);
     }
+
 }
