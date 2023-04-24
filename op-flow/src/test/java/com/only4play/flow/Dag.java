@@ -104,7 +104,7 @@ public class Dag {
             "      \"shape\": \"start\",\n" +
             "      \"data\": {\n" +
             "        \"name\": \"开始\",\n" +
-            "        \"compId\": \"StartComponent\",\n" +
+            "        \"compId\": \"start\",\n" +
             "        \"params\": {\n" +
             "        },\n" +
             "        \"payload\": {\n" +
@@ -130,7 +130,7 @@ public class Dag {
             "      \"data\": {\n" +
             "        \"name\": \"组件A\",\n" +
             "        \"description\": \"\",\n" +
-            "        \"compId\": \"AComponent\",\n" +
+            "        \"compId\": \"start\",\n" +
             "        \"params\": {\n" +
             "        },\n" +
             "        \"payload\": {\n" +
@@ -159,7 +159,7 @@ public class Dag {
             "      \"shape\": \"ifNode\",\n" +
             "      \"data\": {\n" +
             "        \"name\": \"条件\",\n" +
-            "        \"compId\": \"IfComponent\",\n" +
+            "        \"compId\": \"condition\",\n" +
             "        \"params\": {\n" +
             "          \"field\": \"params.b\",\n" +
             "          \"value\": \"3\",\n" +
@@ -198,7 +198,7 @@ public class Dag {
             "      \"data\": {\n" +
             "        \"name\": \"条件成功B组件\",\n" +
             "        \"description\": \"\",\n" +
-            "        \"compId\": \"BComponent\",\n" +
+            "        \"compId\": \"start\",\n" +
             "        \"params\": {\n" +
             "          \"p1\": {\n" +
             "            \"valueSrc\": \"const\",\n" +
@@ -241,7 +241,7 @@ public class Dag {
             "      \"data\": {\n" +
             "        \"name\": \"条件成功组件C\",\n" +
             "        \"description\": \"\",\n" +
-            "        \"compId\": \"CComponent\",\n" +
+            "        \"compId\": \"start\",\n" +
             "        \"params\": {\n" +
             "        },\n" +
             "        \"payload\": {\n" +
@@ -271,7 +271,7 @@ public class Dag {
             "      \"data\": {\n" +
             "        \"name\": \"条件失败组件D\",\n" +
             "        \"description\": \"\",\n" +
-            "        \"compId\": \"DComponent\",\n" +
+            "        \"compId\": \"start\",\n" +
             "        \"params\": {\n" +
             "        },\n" +
             "        \"payload\": {\n" +
@@ -300,7 +300,7 @@ public class Dag {
             "      \"shape\": \"end\",\n" +
             "      \"data\": {\n" +
             "        \"name\": \"结束\",\n" +
-            "        \"compId\": \"EndComponent\",\n" +
+            "        \"compId\": \"start\",\n" +
             "        \"params\": {\n" +
             "        },\n" +
             "        \"payload\": {\n" +

@@ -29,7 +29,7 @@ public class ChainTest {
     public void testCreateChain() {
         //TODO: Test goes here...
         ChainCreateRequest request = new ChainCreateRequest();
-        request.setApplicationName("app");
+        request.setApplicationName("op-flow");
         request.setChainId(UUID.randomUUID().toString());
         request.setChainName("演示流程");
         request.setChainDesc("用于演示");
@@ -44,7 +44,7 @@ public class ChainTest {
         //TODO: Test goes here...
         ChainUpdateRequest request = new ChainUpdateRequest();
         request.setId(1L);
-        request.setApplicationName("app");
+        request.setApplicationName("op-flow");
         request.setChainId(UUID.randomUUID().toString());
         request.setChainName("演示流程");
         request.setChainDesc("用于演示");

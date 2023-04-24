@@ -96,7 +96,7 @@
       "shape": "start",
       "data": {
         "name": "开始",
-        "compId": "StartComponent",
+        "compId": "start",
         "params": {
         },
         "payload": {
@@ -122,7 +122,7 @@
       "data": {
         "name": "组件A",
         "description": "",
-        "compId": "AComponent",
+        "compId": "start",
         "params": {
         },
         "payload": {
@@ -151,7 +151,7 @@
       "shape": "ifNode",
       "data": {
         "name": "条件",
-        "compId": "IfComponent",
+        "compId": "condition",
         "params": {
           "field": "params.b",
           "value": "3",
@@ -190,7 +190,7 @@
       "data": {
         "name": "条件成功B组件",
         "description": "",
-        "compId": "BComponent",
+        "compId": "start",
         "params": {
           "p1": {
             "valueSrc": "const",
@@ -233,7 +233,7 @@
       "data": {
         "name": "条件成功组件C",
         "description": "",
-        "compId": "CComponent",
+        "compId": "start",
         "params": {
         },
         "payload": {
@@ -263,7 +263,7 @@
       "data": {
         "name": "条件失败组件D",
         "description": "",
-        "compId": "DComponent",
+        "compId": "start",
         "params": {
         },
         "payload": {
@@ -292,7 +292,7 @@
       "shape": "end",
       "data": {
         "name": "结束",
-        "compId": "EndComponent",
+        "compId": "start",
         "params": {
         },
         "payload": {
