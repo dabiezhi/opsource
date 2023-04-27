@@ -23,7 +23,8 @@ public class IFlowParser {
     public final LinkedHashMap<String, List<INode>> nodePreMap = new LinkedHashMap<>();
     public final LinkedHashMap<String, Integer> flowToNodeCounter = new LinkedHashMap<>();
     public final LinkedHashMap<String, INodeGroup> nodeGroupMap = new LinkedHashMap<>();
-    public final IFlow flow = IFlow.getInstance();
+    public final List<INode> treeNodes = new ArrayList<>();
+    public final List<INode> singleNodes = new ArrayList<>();
     private List<String> cmpDataList = new ArrayList<>();
 
     public static IFlowParser of(String config) {
@@ -67,12 +68,14 @@ public class IFlowParser {
         if (startNode != null) {
             this.initNode(startNode, null);
         }
+        //递归获取单个节点的列表(group==null)
+        singleNodes.addAll(getAllNodeIds(treeNodes));
         return this;
     }
 
-    public String genEL() {
+    public String genEl() {
         StringBuilder bld = new StringBuilder("");
-        String el = this.genThenEL(flow.getNodes());
+        String el = this.genThenEL(treeNodes);
         for (String cmpData : cmpDataList) {
             bld.append(cmpData);
             bld.append("\n");
@@ -189,7 +192,7 @@ public class IFlowParser {
         }
 
         if (realNodeGroup == null) {
-            flow.getNodes().add(node);
+            treeNodes.add(node);
         } else {
             realNodeGroup.getNodes().add(node);
             this.nodeGroupMap.put(node.getId(), realNodeGroup);
@@ -256,4 +259,21 @@ public class IFlowParser {
         }
         return result;
     }
+
+    public List<INode> getAllNodeIds(List<INode> nodes) {
+        List<INode> result = new ArrayList<>();
+        for (INode node : nodes) {
+            List<INodeGroup> groups = node.getGroups();
+            if (groups != null && !groups.isEmpty()) {
+                List<INode> groupNodes = new ArrayList<>();
+                for (INodeGroup group : groups) {
+                    groupNodes.addAll(group.getNodes());
+                }
+                result.addAll(getAllNodeIds(groupNodes));
+            }
+            result.add(node);
+        }
+        return result;
+    }
+
 }

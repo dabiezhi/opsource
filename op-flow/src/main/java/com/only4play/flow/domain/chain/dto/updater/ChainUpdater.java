@@ -3,7 +3,6 @@ package com.only4play.flow.domain.chain.dto.updater;
 
 import java.util.Optional;
 
-import com.only4play.common.constants.ValidStatus;
 import com.only4play.flow.domain.chain.Chain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,14 +24,9 @@ public class ChainUpdater {
     @Schema(title = "链路描述")
     private String chainDesc;
 
-    @Schema(title = "有效状态: 1-有效,0-无效")
-    private ValidStatus validStatus;
-
     private Long id;
 
     public void updateChain(Chain param) {
-        Optional.ofNullable(getApplicationName()).ifPresent(v -> param.setApplicationName(v));
-        Optional.ofNullable(getChainId()).ifPresent(v -> param.setChainId(v));
         Optional.ofNullable(getChainName()).ifPresent(v -> param.setChainName(v));
         Optional.ofNullable(getChainDesc()).ifPresent(v -> param.setChainDesc(v));
     }

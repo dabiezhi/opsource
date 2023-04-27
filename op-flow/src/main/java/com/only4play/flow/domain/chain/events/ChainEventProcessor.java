@@ -1,9 +1,12 @@
 package com.only4play.flow.domain.chain.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import com.only4play.flow.domain.node.creator.NodeCreator;
 import com.only4play.flow.domain.node.service.INodeService;
+import com.only4play.flow.infrastructure.liteflow.parser.IFlowParser;
 import com.only4play.flow.infrastructure.liteflow.parser.INode;
 
 import lombok.RequiredArgsConstructor;
@@ -25,15 +28,19 @@ public class ChainEventProcessor {
     @EventListener
     public void handleChainCreateForNode(ChainEvents.ChainCreateEvent event) {
         System.out.printf(JSON.toJSONString(event));
-        INode node = event.getIFlowParser().flow.getNodes().get(1);
+        IFlowParser iFlowParser = event.getIFlowParser();
 
-        NodeCreator creator = new NodeCreator();
-        creator.setChainId(event.getChain().getChainId());
-        creator.setNodeId(node.getId());
-        creator.setNodeName(node.getName());
-        creator.setCmpId(node.getCompId());
-        creator.setParams(JSON.toJSONString(node.getData()));
-        creator.setPayload("1212");
-        iNodeService.batchCreateNode(event.getChain().getChainId(), Lists.newArrayList(creator));
+        List<NodeCreator> nodeCreators = new ArrayList<>();
+        for (INode iNode : iFlowParser.singleNodes) {
+            NodeCreator creator = new NodeCreator();
+            creator.setChainId(event.getChain().getChainId());
+            creator.setNodeId(iNode.getId());
+            creator.setNodeName(iNode.getName());
+            creator.setCmpId(iNode.getCompId());
+            creator.setParams(iNode.getData().getParams());
+            creator.setPayload(iNode.getData().getPayload());
+            nodeCreators.add(creator);
+        }
+        iNodeService.batchCreateNode(event.getChain().getChainId(), nodeCreators);
     }
 }

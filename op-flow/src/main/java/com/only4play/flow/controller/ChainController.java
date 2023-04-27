@@ -34,10 +34,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChainController {
     private final IChainService chainService;
 
+
     /**
      * createRequest
      */
-    @PostMapping("createChain")
+    @PostMapping("create")
     public Result<Long> createChain(@RequestBody ChainCreateRequest request) {
         ChainCreator creator = ChainMapper.INSTANCE.request2Creator(request);
         return Result.success(chainService.createChain(creator));
@@ -46,10 +47,19 @@ public class ChainController {
     /**
      * update request
      */
-    @PostMapping("updateChain")
+    @PostMapping("update")
     public Result<String> updateChain(@RequestBody ChainUpdateRequest request) {
         ChainUpdater updater = ChainMapper.INSTANCE.request2Updater(request);
         chainService.updateChain(updater);
+        return Result.success(CodeEnum.Success.getName());
+    }
+
+    /**
+     * releaseRequest
+     */
+    @PostMapping("release")
+    public Result<String> releaseChain(@RequestBody ChainReleaseRequest request) {
+        chainService.releaseChain(request.getId(), request.getFrontJson());
         return Result.success(CodeEnum.Success.getName());
     }
 

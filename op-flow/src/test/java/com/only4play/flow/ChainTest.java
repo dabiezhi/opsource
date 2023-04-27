@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import com.only4play.common.constants.ValidStatus;
 import com.only4play.common.model.PageRequestWrapper;
 import com.only4play.common.model.Result;
 import com.only4play.flow.controller.ChainController;
@@ -34,8 +33,6 @@ public class ChainTest {
         request.setChainId(UUID.randomUUID().toString());
         request.setChainName("演示流程");
         request.setChainDesc("用于演示");
-        request.setFrontJson(Dag.json);
-        request.setValidStatus(ValidStatus.INVALID.getCode());
         Result<Long> chain = chainController.createChain(request);
         //        System.out.println(Result.toJSONString(chain));
     }

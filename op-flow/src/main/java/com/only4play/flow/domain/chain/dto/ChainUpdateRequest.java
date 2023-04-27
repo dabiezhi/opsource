@@ -9,6 +9,9 @@ import lombok.Data;
 @Schema
 @Data
 public class ChainUpdateRequest implements Request {
+
+    private Long id;
+
     @Schema(title = "应用名称")
     private String applicationName;
 
@@ -20,7 +23,5 @@ public class ChainUpdateRequest implements Request {
 
     @Schema(title = "链路描述")
     private String chainDesc;
-
-    private Long id;
 
 }

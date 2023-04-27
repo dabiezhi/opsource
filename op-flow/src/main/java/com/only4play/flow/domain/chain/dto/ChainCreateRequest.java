@@ -9,6 +9,7 @@ import lombok.Data;
 @Schema
 @Data
 public class ChainCreateRequest implements Request {
+
     @Schema(title = "应用名称")
     private String applicationName;
 
@@ -20,11 +21,5 @@ public class ChainCreateRequest implements Request {
 
     @Schema(title = "链路描述")
     private String chainDesc;
-
-    @Schema(title = "页面json")
-    private String frontJson;
-
-    @Schema(title = "有效状态: 1-有效,0-无效")
-    private Integer validStatus;
 
 }

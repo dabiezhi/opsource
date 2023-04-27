@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class ChainReleaseRequest implements Request {
 
+    private Long id;
+
     @Schema(title = "页面json")
     private String frontJson;
 

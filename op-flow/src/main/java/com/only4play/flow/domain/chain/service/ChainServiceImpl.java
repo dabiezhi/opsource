@@ -52,6 +52,11 @@ public class ChainServiceImpl implements IChainService {
                 .execute();
     }
 
+    @Override
+    public void releaseChain(Long id, String frontJson) {
+        EntityOperations.doUpdate(chainRepository).loadById(id).update(e -> e.release(frontJson)).execute();
+    }
+
     /**
      * valid
      */

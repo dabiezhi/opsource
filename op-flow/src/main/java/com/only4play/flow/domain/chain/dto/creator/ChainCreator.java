@@ -21,9 +21,4 @@ public class ChainCreator {
     @Schema(title = "链路描述")
     private String chainDesc;
 
-    @Schema(title = "页面json")
-    private String frontJson;
-
-    @Schema(title = "有效状态: 1-有效,0-无效")
-    private ValidStatus validStatus;
 }
