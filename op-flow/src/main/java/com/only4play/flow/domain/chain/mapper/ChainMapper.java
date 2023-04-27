@@ -4,14 +4,15 @@ package com.only4play.flow.domain.chain.mapper;
 import com.only4play.common.mapper.DateMapper;
 import com.only4play.common.mapper.GenericEnumMapper;
 import com.only4play.flow.domain.chain.Chain;
-import com.only4play.flow.domain.chain.creator.ChainCreator;
-import com.only4play.flow.domain.chain.query.ChainQuery;
-import com.only4play.flow.domain.chain.request.ChainCreateRequest;
-import com.only4play.flow.domain.chain.request.ChainQueryRequest;
-import com.only4play.flow.domain.chain.request.ChainUpdateRequest;
-import com.only4play.flow.domain.chain.response.ChainResponse;
-import com.only4play.flow.domain.chain.updater.ChainUpdater;
-import com.only4play.flow.domain.chain.vo.ChainVO;
+import com.only4play.flow.domain.chain.dto.ChainCreateRequest;
+import com.only4play.flow.domain.chain.dto.ChainQueryRequest;
+import com.only4play.flow.domain.chain.dto.ChainResponse;
+import com.only4play.flow.domain.chain.dto.ChainUpdateRequest;
+import com.only4play.flow.domain.chain.dto.creator.ChainCreator;
+import com.only4play.flow.domain.chain.dto.query.ChainQuery;
+import com.only4play.flow.domain.chain.dto.updater.ChainUpdater;
+import com.only4play.flow.domain.chain.dto.vo.ChainVO;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

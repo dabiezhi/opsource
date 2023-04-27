@@ -5,37 +5,14 @@ import com.only4play.common.mapper.DateMapper;
 import com.only4play.common.mapper.GenericEnumMapper;
 import com.only4play.flow.domain.node.Node;
 import com.only4play.flow.domain.node.creator.NodeCreator;
-import com.only4play.flow.domain.node.query.NodeQuery;
-import com.only4play.flow.domain.node.request.NodeQueryRequest;
-import com.only4play.flow.domain.node.request.NodeUpdateRequest;
-import com.only4play.flow.domain.node.response.NodeResponse;
-import com.only4play.flow.domain.node.updater.NodeUpdater;
-import com.only4play.flow.domain.node.vo.NodeVO;
-import com.only4play.flow.domain.node.request.NodeCreateRequest;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(
-    uses = {
-        GenericEnumMapper.class,
-        DateMapper.class
-    }
-)
+@Mapper(uses = {GenericEnumMapper.class, DateMapper.class})
 public interface NodeMapper {
-  NodeMapper INSTANCE = Mappers.getMapper(NodeMapper.class);
+    NodeMapper INSTANCE = Mappers.getMapper(NodeMapper.class);
 
-  Node dtoToEntity(NodeCreator dto);
+    Node dtoToEntity(NodeCreator dto);
 
-  NodeUpdater request2Updater(NodeUpdateRequest request);
-
-  NodeCreator request2Dto(NodeCreateRequest request);
-
-  NodeQuery request2Query(NodeQueryRequest request);
-
-  NodeResponse vo2Response(NodeVO vo);
-
-  default NodeResponse vo2CustomResponse(NodeVO vo) {
-    NodeResponse response = vo2Response(vo);
-    return response;
-  }
 }

@@ -22,6 +22,9 @@ import lombok.Data;
 @Data
 public class Node extends BaseJpaAggregate {
 
+    @FieldDesc(name = "链路id")
+    private String chainId;
+
     @FieldDesc(name = "节点id")
     private String nodeId;
 

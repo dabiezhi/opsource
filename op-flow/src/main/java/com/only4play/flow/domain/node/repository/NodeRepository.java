@@ -6,4 +6,5 @@ import com.only4play.jpa.support.BaseRepository;
 import java.lang.Long;
 
 public interface NodeRepository extends BaseRepository<Node, Long> {
+    long deleteByChainId(String chainId);
 }

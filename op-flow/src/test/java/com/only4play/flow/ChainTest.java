@@ -4,13 +4,14 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import com.only4play.common.constants.ValidStatus;
 import com.only4play.common.model.PageRequestWrapper;
 import com.only4play.common.model.Result;
 import com.only4play.flow.controller.ChainController;
-import com.only4play.flow.domain.chain.request.ChainCreateRequest;
-import com.only4play.flow.domain.chain.request.ChainQueryRequest;
-import com.only4play.flow.domain.chain.request.ChainUpdateRequest;
-import com.only4play.flow.domain.chain.response.ChainResponse;
+import com.only4play.flow.domain.chain.dto.ChainCreateRequest;
+import com.only4play.flow.domain.chain.dto.ChainQueryRequest;
+import com.only4play.flow.domain.chain.dto.ChainResponse;
+import com.only4play.flow.domain.chain.dto.ChainUpdateRequest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,6 +35,7 @@ public class ChainTest {
         request.setChainName("演示流程");
         request.setChainDesc("用于演示");
         request.setFrontJson(Dag.json);
+        request.setValidStatus(ValidStatus.INVALID.getCode());
         Result<Long> chain = chainController.createChain(request);
         //        System.out.println(Result.toJSONString(chain));
     }
@@ -47,9 +49,7 @@ public class ChainTest {
         request.setApplicationName("op-flow");
         request.setChainId(UUID.randomUUID().toString());
         request.setChainName("演示流程");
-        request.setChainDesc("用于演示");
-        request.setElData("234");
-        request.setEnv("dev");
+        request.setChainDesc("修改成用于演示");
         Result<String> chain = chainController.updateChain(request);
         //        System.out.println(Result.toJSONString(chain));
     }
