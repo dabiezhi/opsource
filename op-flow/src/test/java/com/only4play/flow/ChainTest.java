@@ -4,14 +4,16 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import com.alibaba.fastjson.JSON;
 import com.only4play.common.model.PageRequestWrapper;
+import com.only4play.common.model.PageResult;
 import com.only4play.common.model.Result;
 import com.only4play.flow.controller.ChainController;
-import com.only4play.flow.domain.chain.dto.ChainCreateRequest;
-import com.only4play.flow.domain.chain.dto.ChainQueryRequest;
-import com.only4play.flow.domain.chain.dto.ChainReleaseRequest;
-import com.only4play.flow.domain.chain.dto.ChainResponse;
-import com.only4play.flow.domain.chain.dto.ChainUpdateRequest;
+import com.only4play.flow.domain.chain.dto.ChainCreateReq;
+import com.only4play.flow.domain.chain.dto.ChainQueryReq;
+import com.only4play.flow.domain.chain.dto.ChainReleaseReq;
+import com.only4play.flow.domain.chain.dto.ChainResp;
+import com.only4play.flow.domain.chain.dto.ChainUpdateReq;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,20 +31,19 @@ public class ChainTest {
     @Test
     public void testCreateChain() {
         //TODO: Test goes here...
-        ChainCreateRequest request = new ChainCreateRequest();
+        ChainCreateReq request = new ChainCreateReq();
         request.setApplicationName("op-flow");
         request.setChainId(UUID.randomUUID().toString());
         request.setChainName("演示流程");
         request.setChainDesc("用于演示");
         Result<Long> chain = chainController.createChain(request);
-        //        System.out.println(Result.toJSONString(chain));
     }
 
 
     @Test
     public void testUpdateChain() {
         //TODO: Test goes here...
-        ChainUpdateRequest request = new ChainUpdateRequest();
+        ChainUpdateReq request = new ChainUpdateReq();
         request.setId(1L);
         request.setApplicationName("op-flow");
         request.setChainId(UUID.randomUUID().toString());
@@ -54,7 +55,7 @@ public class ChainTest {
     @Test
     public void testReleaseChain() {
         //TODO: Test goes here...
-        ChainReleaseRequest request = new ChainReleaseRequest();
+        ChainReleaseReq request = new ChainReleaseReq();
         request.setId(1L);
         request.setFrontJson(Dag.json);
         Result<String> chain = chainController.releaseChain(request);
@@ -76,18 +77,17 @@ public class ChainTest {
     @Test
     public void testFindById() {
         //TODO: Test goes here...
-        Result<ChainResponse> byId = chainController.findById(1L);
-        //        System.out.println(Result.toJSONString(byId));
+        Result<ChainResp> byId = chainController.findById(1L);
+        System.out.println(JSON.toJSONString(byId));
     }
 
     @Test
     public void testFindByPage() {
         //TODO: Test goes here...
-        PageRequestWrapper<ChainQueryRequest> request = new PageRequestWrapper<>();
-        request.setPage(1);
-        request.setPageSize(10);
-        //        Result<PageResult<ChainResponse>> byPage = chainController.findByPage(request);
-        //        System.out.println(Result.toJSONString(byPage));
+        ChainQueryReq request = new ChainQueryReq();
+        request.setApplicationName("op-flow");
+        Result<PageResult<ChainResp>> byPage = chainController.findByPage(request);
+        System.out.println(JSON.toJSONString(byPage));
     }
 
 }

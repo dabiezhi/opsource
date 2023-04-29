@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.only4play.common.model.Result;
-import com.only4play.common.utils.StreamUtils;
-import com.only4play.flow.domain.cmp.dto.vo.CmpVO;
-import com.only4play.flow.domain.cmp.mapper.CmpMapper;
-import com.only4play.flow.domain.cmp.response.CmpResponse;
+import com.only4play.flow.domain.cmp.response.CmpResp;
 import com.only4play.flow.domain.cmp.service.ICmpService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,11 +24,9 @@ public class CmpController {
     /**
      * findCm
      */
-    @GetMapping("find")
-    public Result<Map<String, List<CmpResponse>>> find() {
-        List<CmpVO> cmpList = cmpService.findCmp();
-        return Result.success(
-                StreamUtils.totoGroupListMap(cmpList, CmpVO::getMenu, CmpMapper.INSTANCE::vo2CustomResponse));
+    @GetMapping("findAll")
+    public Result<Map<String, List<CmpResp>>> findAll() {
+        return Result.success(cmpService.findAll());
     }
 
 }

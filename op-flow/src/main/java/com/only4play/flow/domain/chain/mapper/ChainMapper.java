@@ -4,42 +4,28 @@ package com.only4play.flow.domain.chain.mapper;
 import com.only4play.common.mapper.DateMapper;
 import com.only4play.common.mapper.GenericEnumMapper;
 import com.only4play.flow.domain.chain.Chain;
-import com.only4play.flow.domain.chain.dto.ChainCreateRequest;
-import com.only4play.flow.domain.chain.dto.ChainQueryRequest;
-import com.only4play.flow.domain.chain.dto.ChainReleaseRequest;
-import com.only4play.flow.domain.chain.dto.ChainResponse;
-import com.only4play.flow.domain.chain.dto.ChainUpdateRequest;
+import com.only4play.flow.domain.chain.dto.ChainCreateReq;
+import com.only4play.flow.domain.chain.dto.ChainReleaseReq;
+import com.only4play.flow.domain.chain.dto.ChainResp;
+import com.only4play.flow.domain.chain.dto.ChainUpdateReq;
 import com.only4play.flow.domain.chain.dto.creator.ChainCreator;
-import com.only4play.flow.domain.chain.dto.query.ChainQuery;
 import com.only4play.flow.domain.chain.dto.updater.ChainUpdater;
-import com.only4play.flow.domain.chain.dto.vo.ChainVO;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(
-    uses = {
-        GenericEnumMapper.class,
-        DateMapper.class
-    }
-)
+@Mapper(uses = {GenericEnumMapper.class, DateMapper.class})
 public interface ChainMapper {
-  ChainMapper INSTANCE = Mappers.getMapper(ChainMapper.class);
+    ChainMapper INSTANCE = Mappers.getMapper(ChainMapper.class);
 
-  Chain dtoToEntity(ChainCreator dto);
+    Chain creator2Entity(ChainCreator dto);
 
-  ChainUpdater request2Updater(ChainUpdateRequest request);
+    ChainUpdater req2Updater(ChainUpdateReq request);
 
-  ChainUpdater request2Updater(ChainReleaseRequest request);
+    ChainUpdater req2Updater(ChainReleaseReq request);
 
-  ChainCreator request2Creator(ChainCreateRequest request);
+    ChainCreator req2Creator(ChainCreateReq request);
 
-  ChainQuery request2Query(ChainQueryRequest request);
+    ChainResp entity2Response(Chain entity);
 
-  ChainResponse vo2Response(ChainVO vo);
-
-  default ChainResponse vo2CustomResponse(ChainVO vo) {
-    ChainResponse response = vo2Response(vo);
-    return response;
-  }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import com.only4play.flow.domain.chain.Chain;
 import com.only4play.flow.domain.chainel.dto.creator.ChainElCreatorOrUpdater;
 import com.only4play.flow.domain.chainel.service.IChainElService;
-import com.only4play.flow.domain.node.creator.NodeCreator;
+import com.only4play.flow.domain.node.dto.creator.NodeCreator;
 import com.only4play.flow.domain.node.service.INodeService;
 import com.only4play.flow.infrastructure.liteflow.parser.IFlowParser;
 import com.only4play.flow.infrastructure.liteflow.parser.INode;

@@ -3,19 +3,10 @@ package com.only4play.flow.domain.node;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.only4play.codegen.processor.creator.GenCreator;
-import com.only4play.codegen.processor.query.GenQuery;
-import com.only4play.codegen.processor.updater.GenUpdater;
-import com.only4play.codegen.processor.vo.GenVo;
 import com.only4play.common.annotation.FieldDesc;
 import com.only4play.jpa.support.BaseJpaAggregate;
 
 import lombok.Data;
-
-@GenVo(pkgName = "com.only4play.flow.domain.node.vo")
-@GenCreator(pkgName = "com.only4play.flow.domain.node.creator")
-@GenUpdater(pkgName = "com.only4play.flow.domain.node.updater")
-@GenQuery(pkgName = "com.only4play.flow.domain.node.query")
 
 @Entity
 @Table(name = "node")

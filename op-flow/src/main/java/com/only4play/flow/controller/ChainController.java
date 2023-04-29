@@ -3,18 +3,12 @@ package com.only4play.flow.controller;
 
 import com.only4play.common.constants.CodeEnum;
 import com.only4play.common.model.PageResult;
-import com.only4play.common.model.PageWrapper;
 import com.only4play.common.model.Result;
-import com.only4play.flow.domain.chain.dto.ChainCreateRequest;
-import com.only4play.flow.domain.chain.dto.ChainQueryRequest;
-import com.only4play.flow.domain.chain.dto.ChainReleaseRequest;
-import com.only4play.flow.domain.chain.dto.ChainResponse;
-import com.only4play.flow.domain.chain.dto.ChainUpdateRequest;
-import com.only4play.flow.domain.chain.dto.creator.ChainCreator;
-import com.only4play.flow.domain.chain.dto.query.ChainQuery;
-import com.only4play.flow.domain.chain.dto.updater.ChainUpdater;
-import com.only4play.flow.domain.chain.dto.vo.ChainVO;
-import com.only4play.flow.domain.chain.mapper.ChainMapper;
+import com.only4play.flow.domain.chain.dto.ChainCreateReq;
+import com.only4play.flow.domain.chain.dto.ChainQueryReq;
+import com.only4play.flow.domain.chain.dto.ChainReleaseReq;
+import com.only4play.flow.domain.chain.dto.ChainResp;
+import com.only4play.flow.domain.chain.dto.ChainUpdateReq;
 import com.only4play.flow.domain.chain.service.IChainService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,18 +33,16 @@ public class ChainController {
      * createRequest
      */
     @PostMapping("create")
-    public Result<Long> createChain(@RequestBody ChainCreateRequest request) {
-        ChainCreator creator = ChainMapper.INSTANCE.request2Creator(request);
-        return Result.success(chainService.createChain(creator));
+    public Result<Long> createChain(@RequestBody ChainCreateReq req) {
+        return Result.success(chainService.createChain(req));
     }
 
     /**
      * update request
      */
     @PostMapping("update")
-    public Result<String> updateChain(@RequestBody ChainUpdateRequest request) {
-        ChainUpdater updater = ChainMapper.INSTANCE.request2Updater(request);
-        chainService.updateChain(updater);
+    public Result<String> updateChain(@RequestBody ChainUpdateReq req) {
+        chainService.updateChain(req);
         return Result.success(CodeEnum.Success.getName());
     }
 
@@ -58,8 +50,8 @@ public class ChainController {
      * releaseRequest
      */
     @PostMapping("release")
-    public Result<String> releaseChain(@RequestBody ChainReleaseRequest request) {
-        chainService.releaseChain(ChainMapper.INSTANCE.request2Updater(request));
+    public Result<String> releaseChain(@RequestBody ChainReleaseReq req) {
+        chainService.releaseChain(req);
         return Result.success(CodeEnum.Success.getName());
     }
 
@@ -94,19 +86,16 @@ public class ChainController {
      * findById
      */
     @GetMapping("findById/{id}")
-    public Result<ChainResponse> findById(@PathVariable Long id) {
-        ChainVO vo = chainService.findById(id);
-        ChainResponse response = ChainMapper.INSTANCE.vo2CustomResponse(vo);
-        return Result.success(response);
+    public Result<ChainResp> findById(@PathVariable Long id) {
+        return Result.success(chainService.findById(id));
     }
 
     /**
      * findByPage request
      */
     @PostMapping("findByPage")
-    public Result<PageResult<ChainResponse>> findByPage(@RequestBody PageWrapper<ChainQueryRequest> request) {
-        PageWrapper<ChainQuery> pageWrapper = request.map(v -> ChainMapper.INSTANCE.request2Query(request.getBean()));
-        Page<ChainResponse> page = chainService.findByPage(pageWrapper).map(ChainMapper.INSTANCE::vo2CustomResponse);
+    public Result<PageResult<ChainResp>> findByPage(@RequestBody ChainQueryReq req) {
+        Page<ChainResp> page = chainService.findByPage(req);
         return Result.success(
                 PageResult.of(page.getContent(), page.getTotalElements(), page.getSize(), page.getNumber()));
     }

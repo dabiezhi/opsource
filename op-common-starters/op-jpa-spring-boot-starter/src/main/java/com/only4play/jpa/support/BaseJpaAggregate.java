@@ -1,6 +1,6 @@
 package com.only4play.jpa.support;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -27,29 +27,22 @@ public abstract class BaseJpaAggregate extends AbstractAggregateRoot<BaseJpaAggr
     private Long id;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    //    @Convert(converter = InstantLongConverter.class)
     @Setter(AccessLevel.PROTECTED)
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
     @Column(name = "updated_at", nullable = false)
-    //    @Convert(converter = InstantLongConverter.class)
     @Setter(AccessLevel.PROTECTED)
-    private LocalDateTime updatedAt;
-
-    //    @Version
-    //    @Column(name = "version")
-    //    @Setter(AccessLevel.PRIVATE)
-    //    private Integer version;
+    private Date updatedAt;
 
     @PrePersist
     public void prePersist() {
-        this.setCreatedAt(LocalDateTime.now());
-        this.setUpdatedAt(LocalDateTime.now());
+        this.setCreatedAt(new Date());
+        this.setUpdatedAt(new Date());
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.setUpdatedAt(LocalDateTime.now());
+        this.setUpdatedAt(new Date());
     }
 
 }

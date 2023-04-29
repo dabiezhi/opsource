@@ -33,8 +33,10 @@ public class ChainElServiceImpl implements IChainElService {
             EntityOperations.doUpdate(chainElRepository).load(chainEl::get).update(
                     e -> creatorOrUpdater.updateChainEl(e)).execute();
         } else {
-            EntityOperations.doCreate(chainElRepository).create(
-                    () -> ChainElMapper.INSTANCE.dtoToEntity(creatorOrUpdater)).update(e -> e.init()).execute();
+            EntityOperations.doCreate(chainElRepository)
+                    .create(() -> ChainElMapper.INSTANCE.creatorOrUpdater2Entity(creatorOrUpdater))
+                    .update(e -> e.init())
+                    .execute();
         }
     }
 

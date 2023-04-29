@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.only4play.common.utils.StreamUtils;
-import com.only4play.flow.domain.cmp.dto.vo.CmpParamVO;
+import com.only4play.flow.domain.cmp.mapper.CmpParamMapper;
 import com.only4play.flow.domain.cmp.repository.CmpParamRepository;
+import com.only4play.flow.domain.cmp.response.CmpParamResp;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +22,9 @@ public class CmpParamServiceImpl implements ICmpParamService {
     private final CmpParamRepository cmpParamRepository;
 
     @Override
-    public Map<String, List<CmpParamVO>> mapCmpParamByCmpId() {
-        List<CmpParamVO> cmpParams = StreamUtils.toList(cmpParamRepository.findAll(), CmpParamVO::new);
-        return StreamUtils.toGroupMap(cmpParams, CmpParamVO::getCmpId);
+    public Map<String, List<CmpParamResp>> mapCmpParamByCmpId() {
+        List<CmpParamResp> cmpParams = StreamUtils.toList(cmpParamRepository.findAll(),
+                                                          CmpParamMapper.INSTANCE::entity2Resp);
+        return StreamUtils.toGroupMap(cmpParams, CmpParamResp::getCmpId);
     }
 }

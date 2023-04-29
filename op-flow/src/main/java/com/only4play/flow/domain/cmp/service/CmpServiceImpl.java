@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.only4play.common.utils.StreamUtils;
-import com.only4play.flow.domain.cmp.dto.vo.CmpParamVO;
-import com.only4play.flow.domain.cmp.dto.vo.CmpVO;
+import com.only4play.flow.domain.cmp.mapper.CmpMapper;
 import com.only4play.flow.domain.cmp.repository.CmpRepository;
+import com.only4play.flow.domain.cmp.response.CmpParamResp;
+import com.only4play.flow.domain.cmp.response.CmpResp;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,14 @@ public class CmpServiceImpl implements ICmpService {
     private final ICmpParamService iCmpParamService;
 
     @Override
-    public List<CmpVO> findCmp() {
-        Map<String, List<CmpParamVO>> cmpParamMap = iCmpParamService.mapCmpParamByCmpId();
-        return StreamUtils.toList(cmpRepository.findAll(), e -> new CmpVO(e, cmpParamMap.get(e.getCmpId())));
+    public Map<String, List<CmpResp>> findAll() {
+        Map<String, List<CmpParamResp>> cmpParamMap = iCmpParamService.mapCmpParamByCmpId();
+        List<CmpResp> cmpList = StreamUtils.toList(cmpRepository.findAll(), e -> {
+            CmpResp cmpResp = CmpMapper.INSTANCE.entity2Resp(e);
+            cmpResp.setParams(cmpParamMap.get(e.getCmpId()));
+            return cmpResp;
+        });
+        return StreamUtils.toGroupMap(cmpList, CmpResp::getMenu);
     }
 
 }

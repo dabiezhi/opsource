@@ -3,20 +3,21 @@ package com.only4play.flow.domain.chain.service;
 
 import java.util.Optional;
 
-import com.only4play.common.constants.CodeEnum;
-import com.only4play.common.exception.BusinessException;
-import com.only4play.common.model.PageWrapper;
 import com.only4play.flow.domain.chain.Chain;
 import com.only4play.flow.domain.chain.QChain;
+import com.only4play.flow.domain.chain.dto.ChainCreateReq;
+import com.only4play.flow.domain.chain.dto.ChainQueryReq;
+import com.only4play.flow.domain.chain.dto.ChainReleaseReq;
+import com.only4play.flow.domain.chain.dto.ChainResp;
+import com.only4play.flow.domain.chain.dto.ChainUpdateReq;
 import com.only4play.flow.domain.chain.dto.creator.ChainCreator;
-import com.only4play.flow.domain.chain.dto.query.ChainQuery;
 import com.only4play.flow.domain.chain.dto.updater.ChainUpdater;
-import com.only4play.flow.domain.chain.dto.vo.ChainVO;
 import com.only4play.flow.domain.chain.mapper.ChainMapper;
 import com.only4play.flow.domain.chain.repository.ChainRepository;
 import com.only4play.jpa.support.EntityOperations;
 import com.querydsl.core.BooleanBuilder;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -33,29 +34,29 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChainServiceImpl implements IChainService {
     private final ChainRepository chainRepository;
 
-    /**
-     * createImpl
-     */
+
     @Override
-    public Long createChain(ChainCreator creator) {
+    public Long createChain(ChainCreateReq request) {
+        ChainCreator creator = ChainMapper.INSTANCE.req2Creator(request);
         Optional<Chain> chain = EntityOperations.doCreate(chainRepository).create(
-                () -> ChainMapper.INSTANCE.dtoToEntity(creator)).update(e -> e.init()).execute();
+                () -> ChainMapper.INSTANCE.creator2Entity(creator)).update(e -> e.init()).execute();
         return chain.isPresent() ? chain.get().getId() : 0;
     }
 
-    /**
-     * update
-     */
+
     @Override
-    public void updateChain(ChainUpdater updater) {
+    public void updateChain(ChainUpdateReq request) {
+        ChainUpdater updater = ChainMapper.INSTANCE.req2Updater(request);
         EntityOperations.doUpdate(chainRepository)
                 .loadById(updater.getId())
                 .update(e -> updater.updateChain(e))
                 .execute();
     }
 
+
     @Override
-    public void releaseChain(ChainUpdater updater) {
+    public void releaseChain(ChainReleaseReq request) {
+        ChainUpdater updater = ChainMapper.INSTANCE.req2Updater(request);
         EntityOperations.doUpdate(chainRepository).loadById(updater.getId()).update(
                 e -> updater.releaseChain(e).release()).execute();
     }
@@ -88,24 +89,24 @@ public class ChainServiceImpl implements IChainService {
      * findById
      */
     @Override
-    public ChainVO findById(Long id) {
+    public ChainResp findById(Long id) {
         Optional<Chain> chain = chainRepository.findById(id);
-        return new ChainVO(chain.orElseThrow(() -> new BusinessException(CodeEnum.NotFindError)));
+        return chain.map(ChainMapper.INSTANCE::entity2Response).orElse(null);
     }
 
     /**
      * findByPage
      */
     @Override
-    public Page<ChainVO> findByPage(PageWrapper<ChainQuery> query) {
+    public Page<ChainResp> findByPage(ChainQueryReq req) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if (StringUtils.isNotBlank(query.getBean().getChainName())) {
-            booleanBuilder.and(QChain.chain.chainName.like(query.getBean().getChainName()));
+        if (StrUtil.isNotBlank(req.getChainName())) {
+            booleanBuilder.and(QChain.chain.chainName.like(req.getChainName()));
         }
-        booleanBuilder.and(QChain.chain.applicationName.eq(query.getBean().getApplicationName()));
+        booleanBuilder.and(QChain.chain.applicationName.eq(req.getApplicationName()));
         Page<Chain> page = chainRepository.findAll(booleanBuilder,
-                                                   PageRequest.of(query.getPage() - 1, query.getPageSize(),
+                                                   PageRequest.of(req.getPageNumber() - 1, req.getPageSize(),
                                                                   Sort.by(Sort.Direction.DESC, "createdAt")));
-        return page.map(ChainVO::new);
+        return page.map(ChainMapper.INSTANCE::entity2Response);
     }
 }

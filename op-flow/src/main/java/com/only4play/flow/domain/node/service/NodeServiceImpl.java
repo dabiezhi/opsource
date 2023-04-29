@@ -2,29 +2,18 @@
 package com.only4play.flow.domain.node.service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import com.only4play.common.constants.CodeEnum;
-import com.only4play.common.exception.BusinessException;
-import com.only4play.common.model.PageRequestWrapper;
 import com.only4play.common.utils.StreamUtils;
 import com.only4play.flow.domain.node.Node;
 import com.only4play.flow.domain.node.QNode;
-import com.only4play.flow.domain.node.creator.NodeCreator;
+import com.only4play.flow.domain.node.dto.creator.NodeCreator;
 import com.only4play.flow.domain.node.mapper.NodeMapper;
-import com.only4play.flow.domain.node.query.NodeQuery;
 import com.only4play.flow.domain.node.repository.NodeRepository;
-import com.only4play.flow.domain.node.vo.NodeVO;
 import com.querydsl.core.BooleanBuilder;
 
 import cn.hutool.core.collection.IterUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,29 +31,8 @@ public class NodeServiceImpl implements INodeService {
         if (IterUtil.isNotEmpty(all)) {
             nodeRepository.deleteByChainId(chainId);
         }
-        List<Node> nodes = StreamUtils.toList(creatorList, NodeMapper.INSTANCE::dtoToEntity);
+        List<Node> nodes = StreamUtils.toList(creatorList, NodeMapper.INSTANCE::creator2Entity);
         nodeRepository.saveAll(nodes);
     }
 
-    /**
-     * findById
-     */
-    @Override
-    public NodeVO findById(Long id) {
-        Optional<Node> node = nodeRepository.findById(id);
-        return new NodeVO(node.orElseThrow(() -> new BusinessException(CodeEnum.NotFindError)));
-    }
-
-    /**
-     * findByPage
-     */
-    @Override
-    public Page<NodeVO> findByPage(PageRequestWrapper<NodeQuery> query) {
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-        Page<Node> page = nodeRepository.findAll(booleanBuilder,
-                                                 PageRequest.of(query.getPage() - 1, query.getPageSize(),
-                                                                Sort.by(Sort.Direction.DESC, "createdAt")));
-        return new PageImpl<>(page.getContent().stream().map(entity -> new NodeVO(entity)).collect(Collectors.toList()),
-                              page.getPageable(), page.getTotalElements());
-    }
 }

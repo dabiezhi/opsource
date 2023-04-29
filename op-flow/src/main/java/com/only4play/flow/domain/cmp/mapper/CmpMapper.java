@@ -3,23 +3,16 @@ package com.only4play.flow.domain.cmp.mapper;
 
 import com.only4play.common.mapper.DateMapper;
 import com.only4play.common.mapper.GenericEnumMapper;
-import com.only4play.common.utils.StreamUtils;
-import com.only4play.flow.domain.cmp.dto.vo.CmpVO;
-import com.only4play.flow.domain.cmp.response.CmpResponse;
+import com.only4play.flow.domain.cmp.Cmp;
+import com.only4play.flow.domain.cmp.response.CmpResp;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(uses = {GenericEnumMapper.class, DateMapper.class})
 public interface CmpMapper {
     CmpMapper INSTANCE = Mappers.getMapper(CmpMapper.class);
 
-    @Mapping(source = "params", target = "params")
-    CmpResponse vo2Response(CmpVO vo);
+    CmpResp entity2Resp(Cmp entity);
 
-    default CmpResponse vo2CustomResponse(CmpVO vo) {
-        CmpResponse response = vo2Response(vo);
-        return response;
-    }
 }

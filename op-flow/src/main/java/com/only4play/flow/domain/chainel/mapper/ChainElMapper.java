@@ -13,5 +13,5 @@ import org.mapstruct.factory.Mappers;
 public interface ChainElMapper {
     ChainElMapper INSTANCE = Mappers.getMapper(ChainElMapper.class);
 
-    ChainEl dtoToEntity(ChainElCreatorOrUpdater dto);
+    ChainEl creatorOrUpdater2Entity(ChainElCreatorOrUpdater dto);
 }

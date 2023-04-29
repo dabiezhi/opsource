@@ -1,15 +1,12 @@
 package com.only4play.flow.domain.cmp.response;
 
-import com.only4play.codegen.processor.vo.AbstractBaseJpaVO;
-import com.only4play.flow.domain.cmp.CmpParam;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 
 @Schema
 @Data
-public class CmpParamResponse {
+public class CmpParamResp {
 
     @Schema(title = "组件id")
     private String cmpId;

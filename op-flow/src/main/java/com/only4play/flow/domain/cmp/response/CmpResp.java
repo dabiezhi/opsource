@@ -11,7 +11,7 @@ import java.util.List;
 
 @Schema
 @Data
-public class CmpResponse extends AbstractJpaResponse {
+public class CmpResp extends AbstractJpaResponse {
     @Schema(title = "组件id")
     private String cmpId;
 
@@ -34,6 +34,9 @@ public class CmpResponse extends AbstractJpaResponse {
     private String desc;
 
     @Schema(title = "组件参数")
-    private List<CmpParamResponse> params;
+    private List<CmpParamResp> params;
 
+    public CmpResp(CmpResp cmp,List<CmpParamResp> params){
+
+    }
 }

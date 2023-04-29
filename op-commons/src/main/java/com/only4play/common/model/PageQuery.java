@@ -1,90 +1,86 @@
 package com.only4play.common.model;
 
-public class PageQuery {
+import java.io.Serializable;
 
-    public static final String ASC = "ASC";
+public class PageQuery implements Serializable {
 
-    public static final String DESC = "DESC";
+    private static final long serialVersionUID = -8882187050736891728L;
+    /**
+     * 默认每页显示的记录数
+     */
+    public static final int DEFAULT_PAGE_SIZE = 20;
+    /**
+     * 最大每页显示的记录数
+     */
+    public static final int MAX_PAGE_SIZE = 200;
+    /**
+     * 默认每页显示的记录数
+     */
+    public static final int DEFAULT_PAGE_NUMBER = 1;
 
-    private static final int DEFAULT_PAGE_SIZE = 10;
+    private int pageNumber;
+    private int pageSize;
+    private boolean lockedOffset;
+    private int offset;
 
-    private int pageSize = DEFAULT_PAGE_SIZE;
-
-    private int page = 1;
-
-    private String orderBy;
-
-    private String orderDirection = DESC;
-
-    private String groupBy;
-
-    private boolean needTotalCount = true;
-
-    public int getPage() {
-        if (page < 1) {
-            return 1;
-        }
-        return page;
+    public PageQuery() {
+        this.pageSize = DEFAULT_PAGE_SIZE;
+        this.pageNumber = DEFAULT_PAGE_NUMBER;
     }
 
-    public PageQuery setPage(int page) {
-        this.page = page;
-        return this;
+    public PageQuery(int pageNumber, int pageSize) {
+        if (pageNumber < 1) {
+            throw new IllegalArgumentException("Page index must not be less than one!");
+        }
+
+        if (pageSize < 1) {
+            throw new IllegalArgumentException("Page size must not be less than one!");
+        }
+
+        this.pageNumber = pageNumber;
+        this.pageSize = Math.min(pageSize, MAX_PAGE_SIZE);
+    }
+
+    public void lockOffset() {
+        lockedOffset = true;
+        this.offset = (pageNumber - 1) * pageSize;
+    }
+
+    public void unlockOffset() {
+        lockedOffset = false;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
     }
 
     public int getPageSize() {
-        if (pageSize < 1) {
-            pageSize = DEFAULT_PAGE_SIZE;
-        }
         return pageSize;
     }
 
-    public PageQuery setPageSize(int pageSize) {
-        if (pageSize < 1) {
-            pageSize = DEFAULT_PAGE_SIZE;
-        }
-        this.pageSize = pageSize;
-        return this;
-    }
-
     public int getOffset() {
-        return (getPage() - 1) * getPageSize();
-    }
-
-    public String getOrderBy() {
-        return orderBy;
-    }
-
-    public PageQuery setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
-        return this;
-    }
-
-    public String getOrderDirection() {
-        return orderDirection;
-    }
-
-    public PageQuery setOrderDirection(String orderDirection) {
-        if (ASC.equalsIgnoreCase(orderDirection) || DESC.equalsIgnoreCase(orderDirection)) {
-            this.orderDirection = orderDirection;
+        if (lockedOffset) {
+            return offset;
         }
-        return this;
+        return (pageNumber - 1) * pageSize;
     }
 
-    public String getGroupBy() {
-        return groupBy;
+    public void setPageNumber(int pageNumber) {
+        if (pageNumber < 1) {
+            throw new IllegalArgumentException("Page index must not be less than one!");
+        }
+        this.pageNumber = pageNumber;
     }
 
-    public void setGroupBy(String groupBy) {
-        this.groupBy = groupBy;
+    public void setPageSize(int pageSize) {
+        if (pageSize < 1) {
+            throw new IllegalArgumentException("Page size must not be less than one!");
+        }
+        this.pageSize = Math.min(pageSize, MAX_PAGE_SIZE);
     }
 
-    public boolean isNeedTotalCount() {
-        return needTotalCount;
+    @Override
+    public String toString() {
+        return "PageQuery{" + "pageNumber=" + pageNumber + ", pageSize=" + pageSize + '}';
     }
-
-    public void setNeedTotalCount(boolean needTotalCount) {
-        this.needTotalCount = needTotalCount;
-    }
-
 }

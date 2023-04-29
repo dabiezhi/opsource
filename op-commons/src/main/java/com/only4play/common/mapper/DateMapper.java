@@ -1,19 +1,27 @@
 package com.only4play.common.mapper;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 public class DateMapper {
-  public Long asLong(Instant date) {
-    if (Objects.nonNull(date)) {
-      return date.toEpochMilli();
+    //  public Long asLong(Instant date) {
+    //    if (Objects.nonNull(date)) {
+    //      return date.toEpochMilli();
+    //    }
+    //    return null;
+    //  }
+    public Instant asInstant(Long date) {
+        if (Objects.nonNull(date)) {
+            return Instant.ofEpochMilli(date);
+        }
+        return null;
     }
-    return null;
-  }
-  public Instant asInstant(Long date) {
-    if (Objects.nonNull(date)) {
-      return Instant.ofEpochMilli(date);
+
+    public Long asLong(Date date) {
+        if (Objects.nonNull(date)) {
+            return date.getTime();
+        }
+        return null;
     }
-    return null;
-  }
 }

@@ -4,20 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.only4play.codegen.processor.mapper.GenMapper;
-import com.only4play.codegen.processor.repository.GenRepository;
-import com.only4play.codegen.processor.service.GenService;
-import com.only4play.codegen.processor.service.GenServiceImpl;
 import com.only4play.common.annotation.FieldDesc;
 import com.only4play.jpa.support.BaseJpaAggregate;
 
 import lombok.Data;
-
-
-@GenRepository(pkgName = "com.only4play.flow.domain.cmp.repository")
-@GenService(pkgName = "com.only4play.flow.domain.cmp.service")
-@GenServiceImpl(pkgName = "com.only4play.flow.domain.cmp.service")
-@GenMapper(pkgName = "com.only4play.flow.domain.cmp.mapper")
 
 @Entity
 @Table(name = "cmp_param")
