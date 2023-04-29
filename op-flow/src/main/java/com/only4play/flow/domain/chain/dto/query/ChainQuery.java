@@ -6,4 +6,10 @@ import lombok.Data;
 
 @Schema
 @Data
-public class ChainQuery {}
+public class ChainQuery {
+    @Schema(title = "应用名称")
+    private String applicationName;
+
+    @Schema(title = "链路名称")
+    private String chainName;
+}

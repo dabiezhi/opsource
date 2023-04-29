@@ -10,25 +10,16 @@ import lombok.Data;
 @Data
 public class ChainResponse extends AbstractJpaResponse {
     @Schema(title = "应用名称")
-    private String  applicationName;
+    private String applicationName;
 
     @Schema(title = "链路id")
-    private String  chainId;
+    private String chainId;
 
     @Schema(title = "链路名称")
-    private String  chainName;
+    private String chainName;
 
     @Schema(title = "链路描述")
-    private String  chainDesc;
-
-    @Schema(title = "链路el数据")
-    private String  elData;
-
-    @Schema(title = "页面json")
-    private String  frontJson;
-
-    @Schema(title = "环境变量")
-    private String  env;
+    private String chainDesc;
 
     @Schema(title = "有效状态: 1-有效,0-无效")
     private Integer validStatus;

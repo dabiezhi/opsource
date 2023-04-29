@@ -7,6 +7,7 @@ import com.only4play.common.constants.CodeEnum;
 import com.only4play.common.exception.BusinessException;
 import com.only4play.common.model.PageWrapper;
 import com.only4play.flow.domain.chain.Chain;
+import com.only4play.flow.domain.chain.QChain;
 import com.only4play.flow.domain.chain.dto.creator.ChainCreator;
 import com.only4play.flow.domain.chain.dto.query.ChainQuery;
 import com.only4play.flow.domain.chain.dto.updater.ChainUpdater;
@@ -18,6 +19,7 @@ import com.querydsl.core.BooleanBuilder;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -97,6 +99,10 @@ public class ChainServiceImpl implements IChainService {
     @Override
     public Page<ChainVO> findByPage(PageWrapper<ChainQuery> query) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (StringUtils.isNotBlank(query.getBean().getChainName())) {
+            booleanBuilder.and(QChain.chain.chainName.eq(query.getBean().getChainName()));
+        }
+        booleanBuilder.and(QChain.chain.applicationName.eq(query.getBean().getApplicationName()));
         Page<Chain> page = chainRepository.findAll(booleanBuilder,
                                                    PageRequest.of(query.getPage() - 1, query.getPageSize(),
                                                                   Sort.by(Sort.Direction.DESC, "createdAt")));

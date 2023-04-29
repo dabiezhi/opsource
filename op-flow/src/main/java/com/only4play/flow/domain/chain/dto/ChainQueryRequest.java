@@ -4,7 +4,15 @@ package com.only4play.flow.domain.chain.dto;
 import com.only4play.common.model.Request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 @Schema
+@Data
 public class ChainQueryRequest implements Request {
+
+    @Schema(title = "应用名称")
+    private String applicationName;
+
+    @Schema(title = "链路名称")
+    private String chainName;
 }
