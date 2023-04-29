@@ -6,6 +6,7 @@ import com.only4play.common.mapper.GenericEnumMapper;
 import com.only4play.flow.domain.chain.Chain;
 import com.only4play.flow.domain.chain.dto.ChainCreateRequest;
 import com.only4play.flow.domain.chain.dto.ChainQueryRequest;
+import com.only4play.flow.domain.chain.dto.ChainReleaseRequest;
 import com.only4play.flow.domain.chain.dto.ChainResponse;
 import com.only4play.flow.domain.chain.dto.ChainUpdateRequest;
 import com.only4play.flow.domain.chain.dto.creator.ChainCreator;
@@ -28,6 +29,8 @@ public interface ChainMapper {
   Chain dtoToEntity(ChainCreator dto);
 
   ChainUpdater request2Updater(ChainUpdateRequest request);
+
+  ChainUpdater request2Updater(ChainReleaseRequest request);
 
   ChainCreator request2Creator(ChainCreateRequest request);
 

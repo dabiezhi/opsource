@@ -37,7 +37,7 @@ liteflow:
     password: root123456
     applicationName: op-flow
     #以下是chain表的配置，这个一定得有
-    chainTableName: chain
+    chainTableName: chain_el
     chainApplicationNameField: application_name
     chainNameField: chain_id
     elDataField: el_data

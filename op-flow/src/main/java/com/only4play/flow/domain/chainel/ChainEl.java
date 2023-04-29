@@ -1,4 +1,4 @@
-package com.only4play.flow.domain.chain;
+package com.only4play.flow.domain.chainel;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,11 +12,10 @@ import com.only4play.jpa.support.BaseJpaAggregate;
 
 import lombok.Data;
 
-@GenRepository(pkgName = "com.only4play.flow.domain.chain.repository")
-@GenService(pkgName = "com.only4play.flow.domain.chain.service")
-@GenServiceImpl(pkgName = "com.only4play.flow.domain.chain.service")
-@GenMapper(pkgName = "com.only4play.flow.domain.chain.mapper")
-
+@GenRepository(pkgName = "com.only4play.flow.domain.chainel.repository")
+@GenService(pkgName = "com.only4play.flow.domain.chainel.service")
+@GenServiceImpl(pkgName = "com.only4play.flow.domain.chainel.service")
+@GenMapper(pkgName = "com.only4play.flow.domain.chainel.mapper")
 @Entity
 @Table(name = "chain_el")
 @Data
@@ -30,4 +29,8 @@ public class ChainEl extends BaseJpaAggregate {
 
     @FieldDesc(name = "链路el数据")
     private String elData;
+
+    public void init() {
+    }
+
 }

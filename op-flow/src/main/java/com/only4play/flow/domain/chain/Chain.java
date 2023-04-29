@@ -31,9 +31,6 @@ public class Chain extends BaseJpaAggregate {
     @FieldDesc(name = "链路描述")
     private String chainDesc;
 
-    @FieldDesc(name = "链路el数据")
-    private String elData;
-
     @FieldDesc(name = "页面json")
     private String frontJson;
 
@@ -45,10 +42,9 @@ public class Chain extends BaseJpaAggregate {
         this.setValidStatus(ValidStatus.INVALID);
     }
 
-    public void release(String frontJson) {
-        Assert.notBlank(frontJson);
+    public void release() {
+        Assert.notBlank(this.getFrontJson());
         IFlowParser parser = IFlowParser.of(this.getFrontJson());
-        this.setElData(parser.genEl());
         registerEvent(new ChainEvents.ChainCreateEvent(this, parser));
     }
 

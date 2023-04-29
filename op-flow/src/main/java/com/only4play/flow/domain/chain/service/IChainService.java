@@ -23,7 +23,7 @@ public interface IChainService {
     /**
      * release
      */
-    void releaseChain(Long id, String frontJson);
+    void releaseChain(ChainUpdater updater);
 
     /**
      * valid

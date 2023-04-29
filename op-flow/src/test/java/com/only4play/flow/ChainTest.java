@@ -9,6 +9,7 @@ import com.only4play.common.model.Result;
 import com.only4play.flow.controller.ChainController;
 import com.only4play.flow.domain.chain.dto.ChainCreateRequest;
 import com.only4play.flow.domain.chain.dto.ChainQueryRequest;
+import com.only4play.flow.domain.chain.dto.ChainReleaseRequest;
 import com.only4play.flow.domain.chain.dto.ChainResponse;
 import com.only4play.flow.domain.chain.dto.ChainUpdateRequest;
 
@@ -48,7 +49,15 @@ public class ChainTest {
         request.setChainName("演示流程");
         request.setChainDesc("修改成用于演示");
         Result<String> chain = chainController.updateChain(request);
-        //        System.out.println(Result.toJSONString(chain));
+    }
+
+    @Test
+    public void testReleaseChain() {
+        //TODO: Test goes here...
+        ChainReleaseRequest request = new ChainReleaseRequest();
+        request.setId(1L);
+        request.setFrontJson(Dag.json);
+        Result<String> chain = chainController.releaseChain(request);
     }
 
 

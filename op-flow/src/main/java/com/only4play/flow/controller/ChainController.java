@@ -59,7 +59,7 @@ public class ChainController {
      */
     @PostMapping("release")
     public Result<String> releaseChain(@RequestBody ChainReleaseRequest request) {
-        chainService.releaseChain(request.getId(), request.getFrontJson());
+        chainService.releaseChain(ChainMapper.INSTANCE.request2Updater(request));
         return Result.success(CodeEnum.Success.getName());
     }
 

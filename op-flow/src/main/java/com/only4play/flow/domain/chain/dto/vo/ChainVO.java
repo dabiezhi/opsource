@@ -40,7 +40,6 @@ public class ChainVO {
         this.setChainId(source.getChainId());
         this.setChainName(source.getChainName());
         this.setChainDesc(source.getChainDesc());
-        this.setElData(source.getElData());
         this.setFrontJson(source.getFrontJson());
         this.setValidStatus(source.getValidStatus());
     }

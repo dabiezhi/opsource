@@ -3,6 +3,7 @@ package com.only4play.flow.domain.chain.dto.updater;
 
 import java.util.Optional;
 
+import com.only4play.common.annotation.FieldDesc;
 import com.only4play.flow.domain.chain.Chain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,10 +25,19 @@ public class ChainUpdater {
     @Schema(title = "链路描述")
     private String chainDesc;
 
+    @FieldDesc(name = "页面json")
+    private String frontJson;
+
     private Long id;
 
-    public void updateChain(Chain param) {
+    public Chain updateChain(Chain param) {
         Optional.ofNullable(getChainName()).ifPresent(v -> param.setChainName(v));
         Optional.ofNullable(getChainDesc()).ifPresent(v -> param.setChainDesc(v));
+        return param;
+    }
+
+    public Chain releaseChain(Chain param) {
+        Optional.ofNullable(getFrontJson()).ifPresent(v -> param.setFrontJson(v));
+        return param;
     }
 }

@@ -3,7 +3,9 @@ package com.only4play.flow.domain.chain.events;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
+import com.only4play.flow.domain.chain.Chain;
+import com.only4play.flow.domain.chainel.dto.creator.ChainElCreatorOrUpdater;
+import com.only4play.flow.domain.chainel.service.IChainElService;
 import com.only4play.flow.domain.node.creator.NodeCreator;
 import com.only4play.flow.domain.node.service.INodeService;
 import com.only4play.flow.infrastructure.liteflow.parser.IFlowParser;
@@ -24,10 +26,10 @@ import org.springframework.stereotype.Component;
 public class ChainEventProcessor {
 
     private final INodeService iNodeService;
+    private final IChainElService iChainElService;
 
     @EventListener
     public void handleChainCreateForNode(ChainEvents.ChainCreateEvent event) {
-        System.out.printf(JSON.toJSONString(event));
         IFlowParser iFlowParser = event.getIFlowParser();
 
         List<NodeCreator> nodeCreators = new ArrayList<>();
@@ -42,5 +44,17 @@ public class ChainEventProcessor {
             nodeCreators.add(creator);
         }
         iNodeService.batchCreateNode(event.getChain().getChainId(), nodeCreators);
+    }
+
+    @EventListener
+    public void handleChainCreateForEl(ChainEvents.ChainCreateEvent event) {
+        IFlowParser iFlowParser = event.getIFlowParser();
+        Chain chain = event.getChain();
+
+        ChainElCreatorOrUpdater creatorOrUpdater = new ChainElCreatorOrUpdater();
+        creatorOrUpdater.setChainId(chain.getChainId());
+        creatorOrUpdater.setApplicationName(chain.getApplicationName());
+        creatorOrUpdater.setElData(iFlowParser.genEl());
+        iChainElService.createOrUpdateChainEl(creatorOrUpdater);
     }
 }
