@@ -23,6 +23,9 @@ public class ChainVO extends AbstractBaseJpaVO {
     @Schema(title = "链路描述")
     private String chainDesc;
 
+    @Schema(title = "页面json")
+    private String frontJson;
+
     @Schema(title = "有效状态: 1-有效,0-无效")
     private ValidStatus validStatus;
 
@@ -32,6 +35,7 @@ public class ChainVO extends AbstractBaseJpaVO {
         this.setChainId(source.getChainId());
         this.setChainName(source.getChainName());
         this.setChainDesc(source.getChainDesc());
+        this.setFrontJson(source.getFrontJson());
         this.setValidStatus(source.getValidStatus());
         this.setId(source.getId());
     }

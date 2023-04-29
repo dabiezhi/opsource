@@ -100,7 +100,7 @@ public class ChainServiceImpl implements IChainService {
     public Page<ChainVO> findByPage(PageWrapper<ChainQuery> query) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (StringUtils.isNotBlank(query.getBean().getChainName())) {
-            booleanBuilder.and(QChain.chain.chainName.eq(query.getBean().getChainName()));
+            booleanBuilder.and(QChain.chain.chainName.like(query.getBean().getChainName()));
         }
         booleanBuilder.and(QChain.chain.applicationName.eq(query.getBean().getApplicationName()));
         Page<Chain> page = chainRepository.findAll(booleanBuilder,
